@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function removeFile {
+mkdir -p $HOME/.trashbin/ #erstellt das Verzeichnis falls es nicht exisitert
+touch $HOME/.trashbin/.dir 
+
+
+COUNT=$(wc -l $HOME/.trashbin/.dir | awk '{print $1 }') #wc gibt die Anzahl der Zeilen in der .dir aus, awk speichert nur den ersten Rückgabewert in die Variable
+
+COUNT=$((COUNT+1)) #Zähler wird um 1 erhöht weil wir nicht bei 0 anfangen zu zählen
+
+DATUM=$(date "+%y%m%d%H%M%S_$$_$COUNT.dat")
+
+OLDPATH=$(realpath $1) #speichert den absoluten Pfad der Datei
+
+printf "$DATUM $OLDPATH \n" >> $HOME/.trashbin/.dir #schreibt den neuen Namen mit altem Pfad und Zeilenumbruch in die .dir
+mv $1 $HOME/.trashbin/$DATUM #benennt Datei um und verschiebt sie in .trashbin
+
+
+echo "$DATUM $OLDPATH"
+}
+
+for FILE in $@
+do
+	if [ -e $FILE ]
+	then
+		removeFile $FILE
+	else 
+		echo "Keine Datei mit dem Namen $FILE im aktuellen Ordner"
+	fi
+done

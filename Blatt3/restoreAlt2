@@ -1,0 +1,28 @@
+#!/bin/bash
+
+function restoreFile {
+I=0
+DELETED=$(awk '{print $1}' $HOME/.trashbin/.dir) #speichert die Zeile bis zum ersten whitespace
+
+OLDPATH=($(awk '{print $2}' $HOME/.trashbin/.dir)) #speichert den Pfad in einen Array 
+
+for LINE in $DELETED 
+do
+	if [ "$1" == "$LINE" ]
+	then
+		mkdir -p $(dirname ${OLDPATH[$I]})
+		mv $HOME/.trashbin/$1 $(dirname  ${OLDPATH[$I]})
+		mv $1 $(basename ${OLDPATH[$I]}) 
+		let "I+=1"
+		sed -i  "${I}d"  $HOME/.trashbin/.dir  
+		let "I-=1"
+	fi
+	let "I+=1"
+done
+}
+
+for FILE in $@
+do
+	restoreFile $FILE
+done
+

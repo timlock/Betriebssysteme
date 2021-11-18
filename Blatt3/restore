@@ -1,0 +1,71 @@
+#!/bin/bash
+
+
+function checkForDuplicates {
+	TARGETDIR=($(ls $2*))
+	echo $((${#TARGETDIR[@]}+1))
+
+}
+
+function restoreFile {
+	COUNT=$2 
+	mkdir -p $(dirname ${PATHARR[$2]}) 
+	POSTFIX=""
+	if [ -e ${PATHARR[$2]} ] 
+	then
+		DUPLICATES=$(checkForDuplicates $(dirname ${PATHARR[$2]}) $(basename ${PATHARR[$2]})) 
+		
+		POSTFIX="."$DUPLICATES 
+	fi
+	mv $HOME/.trashbin/${DELETEDARR[$COUNT]} ${PATHARR[$COUNT]}$POSTFIX 
+		
+	COUNT=$((COUNT+1))
+	sed -i  "${COUNT}d"  $HOME/.trashbin/.dir
+}
+
+function fileCheck {
+I=0 
+DELETED=$(awk '{print $1}' $HOME/.trashbin/.dir) 
+
+
+DELETEDARR=($(awk '{print $1}' $HOME/.trashbin/.dir) )
+
+#OLDPATH=$(awk '{print $2}' $HOME/.trashbin/.dir) 
+
+OLDPATH=$(cut -d' ' -f2-  $HOME/.trashbin/.dir) #speichert den Pfad in einen Array 
+PATHARR=($(awk '{print $2}' $HOME/.trashbin/.dir))
+INDEX=()
+for LINE in  $OLDPATH 
+do
+	if [ "$1" == "$(basename $LINE)" ] 
+	then
+		INDEX+=("${DELETEDARR[$I]}_${PATHARR[$I]}_trashbinIndex:$I")	
+	fi
+	let "I+=1"
+done
+if (( "${#INDEX[@]}" > 1 ))
+then
+	select CHOICE in ${INDEX[@]} 
+	do
+		restoreFile $1 ${CHOICE: -1} 
+		break
+
+	done
+elif (( "${#INDEX[@]}" == 0 )) 
+then
+	echo "$1 existert nicht im Papierkorb"
+else		
+	restoreFile $1 ${INDEX: -1} 
+fi
+}
+BINSIZE=$(wc -l $HOME/.trashbin/.dir | awk '{print $1 }') 
+for FILE in $@
+do
+	if ((BINSIZE > 0)) 
+	then
+	fileCheck $FILE
+	else 
+	echo "Papierkorb ist leer"
+	fi
+
+done

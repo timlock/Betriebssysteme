@@ -1,0 +1,6 @@
+#!/bin/bash
+
+var=($(ls))
+ls $var
+echo ${#var[@]}
+

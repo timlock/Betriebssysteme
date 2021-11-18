@@ -1,0 +1,56 @@
+#!/bin/bash
+
+function fileExists {
+if test -e $1; then
+	echo $1 existiert
+else
+	echo $1 existiert nicht
+fi
+}
+
+function isRegularFile {
+if test -f $1; then
+	echo $1 ist eine reguläre Datei
+else
+	echo $1 ist keine reguläre Datei
+fi
+}
+
+function isLink {
+if test -L $1; then
+	echo $1 ist ein symbolischer Link
+else
+	echo $1 ist kein symbolischer Link
+fi
+}
+function isOwner {
+if test -O $1; then
+	echo Aufrufer ist Besitzer von $1
+else
+	echo Aufrufer ist kein Besitzer von $1
+fi
+}
+
+function isDirectory {
+if  test -d $1; then
+	echo $1 ist ein Ordner
+else 
+	echo $1 ist kein Ordner
+fi
+
+}
+
+function owner {
+	stat -c '%U' $1
+}
+
+for name in $@
+do
+fileExists $name 
+isDirectory $name 
+isOwner $name 
+isLink $name 
+isRegularFile $name 
+owner $name 
+done
+

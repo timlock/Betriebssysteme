@@ -1,0 +1,11 @@
+#!/bin/bash
+I=()
+TEST=3
+echo $TEST
+I+=("$TEST")
+
+I+=('2')
+echo "$TEST"
+echo "$I"
+echo ${I[1]}
+echo ${#I[@]}
