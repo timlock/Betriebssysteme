@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Open mini shell"
+myvariable=$USER
+CURRENTPATH=$(pwd)
+gnome-terminal -- bash -c "./cppShell/cppShell $USER $CURRENTPATH;" # exec bash"
