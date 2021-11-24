@@ -107,8 +107,8 @@ int MiniShell::miniExport(vector<string> &inputVec)
         return -1;
     }
     int pos = inputVec[1].find("=");
-    string varName = inputVec[1].substr(0,pos);
-    string varConent = inputVec[1].substr(pos, inputVec[1].length() - pos);
+    string varName = inputVec[1].substr(0,pos); // substring vom Anfang bis "="
+    string varConent = inputVec[1].substr(2 + pos, inputVec[1].length() - pos -3); // substring von "="  bis zum Ende
     setenv(varName.c_str(),varConent.c_str(),0); // Variable wird gestzt
     return 0;
 }
