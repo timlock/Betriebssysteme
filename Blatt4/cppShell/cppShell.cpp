@@ -75,9 +75,13 @@ void MiniShell::showenv(vector<string> &inputVec){
 void MiniShell::miniExport(vector<string> &inputVec){
 
 }
-
+/*
 int main(int argc, char *argv[])
 {
     MiniShell shell(argv[1], argv[2]);
     shell.run();
+}
+*/
+int main(){
+    
 }
