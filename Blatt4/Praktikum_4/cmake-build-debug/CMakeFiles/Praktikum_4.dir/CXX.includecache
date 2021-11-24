@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vm/Downloads/Praktikum_4/main.cpp
+iostream
+-
+unistd.h
+-
+vector
+-
+sys/wait.h
+-
+main.h
+/home/vm/Downloads/Praktikum_4/main.h
+
+/home/vm/Downloads/Praktikum_4/main.h
+

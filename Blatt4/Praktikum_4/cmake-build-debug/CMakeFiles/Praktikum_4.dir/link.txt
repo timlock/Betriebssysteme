@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/Praktikum_4.dir/main.cpp.o -o Praktikum_4 
