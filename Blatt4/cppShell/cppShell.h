@@ -3,6 +3,9 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <limits.h>
 
 using namespace std;
 
@@ -12,15 +15,16 @@ class MiniShell{
     vector<string> vecPath;
     string strPath;
     string user;
+    vector<string> inputVec;
     int status = 0;
 
-    MiniShell(char* user, char* path);
-    vector<string> pathify(string path);
+    MiniShell(const char* user, const char* path);
     void run();
-    void digest(string input);
+    int digest(string input);
     int execute(vector<string> &inputVec);
-    void changeDir(vector<string> &inputVec);
-    void miniExit (vector<string> &inputVec);
-    void showenv (vector<string> &inputVec);
-    void miniExport(vector<string> &inputVec);
+    int changeDir(string path);
+    void miniExit ();
+    int showenv (vector<string> &inputVec);
+    int miniExport(vector<string> &inputVec);
+    int miniUnix(vector<string> &inputVec);
 };
