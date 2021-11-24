@@ -4,14 +4,17 @@ MiniShell::MiniShell(const char *user, const char *path) : user(user), strPath(p
 {
 }
 
+/*
+ *Liest permanent die Nutzereingabe und ruft die entsprechenden Methoden auf
+ */
 void MiniShell::run()
 {
     string input;
     while (1)
     {
         cout << user << "@Linux:~" << strPath << "$ ";
-        getline(cin, input);
-        if(digest(input) == -1) continue;
+        getline(cin, input); //Liest komplette Eingabe in einen String
+        if(digest(input) == -1) continue; //Bei einer leeren Eingabe wird der aktuelle Schleifendurchgang abgebrochen
         if(input == "-1") miniExit();
         if (execute(this->inputVec) != 0)
             cout << endl
@@ -33,12 +36,12 @@ int MiniShell::digest(string input)
     int count = 0;
     while (sstream >> arg)
     {
-        if(arg[0] == '$'){
-            arg = string(getenv(arg.substr(1,arg.length()-1).c_str()));
+        if(arg[0] == '$'){ // Prüft auf Umgebungsvariable
+            arg = string(getenv(arg.substr(1,arg.length()-1).c_str())); // Umgebungsvariable wird aufgelöst
         }
         this->inputVec.push_back(arg);
     }
-    if (inputVec.size() == 0)
+    if (inputVec.size() == 0) // leere Eingabe wird abgefangen
         return -1;
         else return 0;
 }
@@ -69,12 +72,12 @@ int MiniShell::execute(vector<string> &inputVec)
 /*
     @param path string Zielpfad
 
-    Ähndert den Pfad 
+    Ändert den Pfad
 */
 
 int MiniShell::changeDir(string path)
 {
-    char *chrPath = realpath(path.c_str(), nullptr);
+    char *chrPath = realpath(path.c_str(), nullptr); // Relativer Pfad wird aufgelöst
     if (chdir(chrPath) == -1)
     {
         cout << "Pfad existiert nicht" << endl;
@@ -91,35 +94,48 @@ int MiniShell::showenv(vector<string> &inputVec)
 {
     return 0;
 }
+
+/*
+ * @param inputVec vector<string> & Vector mit allen Eingaben
+ *
+ * Setzt eine neue Umgebungsvariable
+ */
 int MiniShell::miniExport(vector<string> &inputVec)
 {
+    if(inputVec[1].find("=") == string::npos){
+        cout << "Fehler beim setzen der Variable" << endl;
+        return -1;
+    }
     int pos = inputVec[1].find("=");
     string varName = inputVec[1].substr(0,pos);
     string varConent = inputVec[1].substr(pos, inputVec[1].length() - pos);
-    setenv(varName.c_str(),varConent.c_str(),0);
+    setenv(varName.c_str(),varConent.c_str(),0); // Variable wird gestzt
     return 0;
 }
+/*
+ * @param inputVec vector<string> & Vector mit allen Eingaben
+ *
+ * führt einen Unix Befehl aus
+ */
 
 int MiniShell::miniUnix(vector<string> &inputVec)
 {
     const char* cmd = inputVec[0].c_str();
-//    inputVec.erase(inputVec.begin());
-    //vector<char *> charVec = convertToChar(inputVec);
     vector<char*> charVec;
     for(string arg: inputVec){
         charVec.push_back((char*)arg.c_str()); // konvertiert alle Vectorspalten zu char* 
     }
-    charVec.push_back(nullptr);
+    charVec.push_back(nullptr); // nullptr markiert das Ende von einem C array
     int state = 0;
-    pid_t pid = fork();
-    if (pid == -1)
+    pid_t pid = fork(); // es wird ein Kind Prozess erstellt
+    if (pid == -1) // Fehler beim Fork
         return -1;
-    if (pid > 0)
+    if (pid > 0) // Process ID des Parent Process hat immer einen Wert größer 0
     {
-        waitpid(pid, &state, 0);
+        waitpid(pid, &state, 0); // Process wartet auf Child
         //return WIFEXITED(state);
     }
-    if (pid == 0)
+    if (pid == 0) // Child Process ist immer 0
     {
         return execvp(cmd, &charVec[0]); //exec -v- es wird ein Vector übergeben -p- der Befehl wird in $PATH gesucht, man muss den Pfad des Befehls deshalb nicht übergeben
     }
