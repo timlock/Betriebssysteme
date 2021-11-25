@@ -45,14 +45,8 @@ int MiniShell::digest(string input)
     int count = 0;
     while (sstream >> arg)
     {
-        char * paul = nullptr;
         if(arg[0] == '$'){ // Prüft auf Umgebungsvariable
-            paul = getenv(arg.c_str()+1);
-            if(paul) {
-                arg = string(paul);
-            }else arg =string("");
-            //arg = string(getenv(arg.substr(1,arg.length()-1).c_str())); // Umgebungsvariable wird aufgelöst
-            
+            arg = string(getenv(arg.substr(1,arg.length()-1).c_str())); // Umgebungsvariable wird aufgelöst
         }
         this->inputVec.push_back(arg);
     }
