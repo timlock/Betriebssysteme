@@ -122,8 +122,11 @@ int MiniShell::miniUnix(vector<string> &inputVec)
 {
     const char* cmd = inputVec[0].c_str();
     vector<char*> charVec;
-    for(string arg: inputVec){
-        charVec.push_back((char*)arg.c_str()); // konvertiert alle Vectorspalten zu char* 
+   // for(string arg: inputVec){
+     //   charVec.push_back((char*)arg.c_str()); // konvertiert alle Vectorspalten zu char* 
+    //}
+    for(int i = 0; i < inputVec.size(); i++){
+        charVec.push_back((char*) inputVec[i].c_str());
     }
     charVec.push_back(nullptr); // nullptr markiert das Ende von einem C array
     int state = 0;
@@ -137,7 +140,7 @@ int MiniShell::miniUnix(vector<string> &inputVec)
     }
     if (pid == 0) // Child Process ist immer 0
     {
-        return execvp(cmd, &charVec[0]); //exec -v- es wird ein Vector übergeben -p- der Befehl wird in $PATH gesucht, man muss den Pfad des Befehls deshalb nicht übergeben
+        exit (execvp(cmd, &charVec[0])); //exec -v- es wird ein Vector übergeben -p- der Befehl wird in $PATH gesucht, man muss den Pfad des Befehls deshalb nicht übergeben
     }
     return 0;
 }
