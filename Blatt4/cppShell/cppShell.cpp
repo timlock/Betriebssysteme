@@ -1,3 +1,12 @@
+/**************************************************************   
+ * cppShell.cpp  
+ * Funktion: Schnittstelle fürs Terminal. Liest eingaben ein, löst Variablen auf und ruft die entsprechnenden Unix Befehle aus 
+ * Autor: Dennis Mitkevic, Tim Lock
+ *************************************************************/
+
+
+
+
 #include "cppShell.h"
 
 MiniShell::MiniShell(const char *user, const char *path) : user(user), strPath(path)
