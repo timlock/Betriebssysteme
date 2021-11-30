@@ -106,7 +106,7 @@ int MiniShell::showenv(string var)
 {
 
     extern char **environ;
-    for(size_t i = 0; environ + i != nullptr;i++){
+    for(size_t i = 0; environ[i] != nullptr;i++){
         cout << *(environ +i) << endl;
     }
 
@@ -143,7 +143,10 @@ int MiniShell::miniUnix(vector<string> &inputVec)
     vector<char*> charVec2;
     bool containsPipe = false;//Eingabe enthält eine Pipe mit zwei Befehlen
     for(int i = 0; i < inputVec.size(); i++){
-        if(inputVec[i] == "|") containsPipe = true;
+        if(inputVec[i] == "|") {
+            containsPipe = true;
+            continue;
+        }
         if(containsPipe){
             charVec2.push_back((char*) inputVec[i].c_str()); //Zweiter Befehl wird seperat gespeichert 
         }
@@ -155,7 +158,7 @@ int MiniShell::miniUnix(vector<string> &inputVec)
     int fd[2]; //Dateideskriptor
     if(pipe(fd) == -1) return -1; 
     pid_t pid = fork(); // es wird ein Kind Prozess erstellt
-    pid_t pid2 = 0; //wird benögtigt falls eine Pipe erkannt wurde
+    pid_t pid2 = -1; //wird benögtigt falls eine Pipe erkannt wurde
     int state2 = 0;
     if (pid == -1) // Fehler beim Fork
         return -1;
@@ -163,15 +166,32 @@ int MiniShell::miniUnix(vector<string> &inputVec)
     {
         if(containsPipe) {
             dup2(fd[1], STDOUT_FILENO); // das Ergebnis von exec wird nicht mehr über STDOUT ausgegeben sondern an fd[1] an den anderen Child Process weitergeleitet
+            //dup2(fd[0], STDIN_FILENO); // das Ergebnis von exec wird nicht mehr über STDOUT ausgegeben sondern an fd[1] an den anderen Child Process weitergeleitet
+            close(fd[0]);
+            close(fd[1]);
+            //exit(0);
         }
         exit (execvp(cmd, &charVec[0])); //exec -v- es wird ein Vector übergeben -p- der Befehl wird in $PATH gesucht, man muss den Pfad des Befehls deshalb nicht übergeben
     }
-    if (pid > 0) // Process ID des Parent Process hat immer einen Wert größer 0
-    {
+
+       if(containsPipe){
+           pid2 = fork();
+           if(pid2 < 0) return -1;
+       } 
+        if(pid2 == 0){
+            dup2(fd[0], STDIN_FILENO);
+            //dup2(fd[1], STDOUT_FILENO);
+            close(fd[0]);
+            close(fd[1]);
+            exit(0);
+            exit(execvp(charVec2[0],&charVec2[0]));
+        }
+        close(fd[0]);
+        close(fd[1]);
         waitpid(pid, &state, 0); // Process wartet auf Child
+        waitpid(pid2, &state2, 0);
         //return WIFEXITED(state);
         return state;
-    }
     return 0;
 }
 
