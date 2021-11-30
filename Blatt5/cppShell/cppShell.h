@@ -24,7 +24,7 @@ class MiniShell{
     int execute(vector<string> &inputVec);
     int changeDir(string path);
     void miniExit ();
-    int showenv (vector<string> &inputVec);
+    int showenv (string var);
     int miniExport(vector<string> &inputVec);
     int miniUnix(vector<string> &inputVec);
 };
