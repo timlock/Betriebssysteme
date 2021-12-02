@@ -183,7 +183,7 @@ int MiniShell::miniUnix(vector<string> &inputVec)
             //dup2(fd[1], STDOUT_FILENO);
             close(fd[0]);
             close(fd[1]);
-            exit(0);
+            //exit(0);
             exit(execvp(charVec2[0],&charVec2[0]));
         }
         close(fd[0]);
