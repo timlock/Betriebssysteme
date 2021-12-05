@@ -11,8 +11,8 @@ void WebBot::initialize(){
     char *argv[3];
     argv[0] = "testSites_10_2019.txt";
     argv[1] = "--webreq-delay 100 ";
-    argv[2] = "-webreq-path";
+    argv[2] = "--webreq-path download";
     WebRequest request(3,argv);
-    request.download("https://www.google.de/","download/");
+    request.download("https://duckduckgo.com/","./download");
 }
 
