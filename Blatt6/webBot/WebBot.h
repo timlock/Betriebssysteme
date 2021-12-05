@@ -3,7 +3,7 @@
 #include <mutex>
 #include <atomic>
 #include <condition_variable>
-
+#include <fstream>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -12,12 +12,12 @@
 #include <iostream>
 using namespace std;
 
-class webBot {
+class WebBot {
 Queue queue;
 
 public:
-webBot();
-~webBot();
+WebBot() = default;
+~WebBot() = default;
 void initialize();
 
 

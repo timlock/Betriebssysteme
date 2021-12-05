@@ -1,0 +1,14 @@
+# ninja log v5
+0	504	1638716797891456470	CMakeFiles/clionBot.dir/Queue.cpp.o	7759198301f39ce4
+1	265	1638716797655455665	CMakeFiles/clionBot.dir/web_request/web_request.c.o	ee029b412fcce124
+1	456	1638719800943444326	CMakeFiles/clionBot.dir/WebBot.cpp.o	2a57cdf882422a27
+1	21	1638720181180801208	build.ninja	a925890b55b250d5
+1	338	1638716797727455911	CMakeFiles/clionBot.dir/web_request/web_request.cpp.o	c4ab9038bf002882
+16	596	1638718942472160248	CMakeFiles/clionBot.dir/main.cpp.o	e52e7928e297a945
+456	738	1638719801223445372	clionBot	4cdb892d86c9973d
+2	157	1638720197084857930	CMakeFiles/clionBot.dir/web_request/web_request.c.o	7469bba43e8366a1
+2	209	1638720197140858132	CMakeFiles/clionBot.dir/web_request/web_request.cpp.o	715bc5c7651fec28
+1	412	1638720197340858843	CMakeFiles/clionBot.dir/Queue.cpp.o	cba264ee5e6dc440
+1	489	1638720197420859129	CMakeFiles/clionBot.dir/main.cpp.o	a9f679ac8e4570f7
+1	501	1638720197432859171	CMakeFiles/clionBot.dir/WebBot.cpp.o	6a9b350458661c6f
+501	773	1638720197700860127	clionBot	4cdb892d86c9973d

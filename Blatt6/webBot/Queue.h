@@ -16,7 +16,8 @@ public:
     std::condition_variable notFull, notEmpty;
 public:
     Queue(int capacity);
-    ~Queue();
+    Queue() = default;
+    ~Queue() = default;
     void addItem(int in);
     void delItem(int *out);
     bool isFull();

@@ -8,7 +8,6 @@ Queue::Queue (int capacity) : capacity(capacity){
     tail = 0;
 }
 
-Queue::~Queue () { }
 
 void Queue::addItem(int in) {
     buf[tail] = in;
