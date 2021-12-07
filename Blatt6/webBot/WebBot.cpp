@@ -51,8 +51,9 @@ void WebBot::reader() {
     }
     string input;
     while (file>> input){
+        this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
         if(queue.isFull());
-            //warten
+
         queue.addItem((char*)input.c_str());
     }
 }
@@ -64,6 +65,7 @@ void WebBot::client() {
     int id = threadID++;
     string url;
     while(!queue.isEmpty()){
+        this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
         stringstream ssfilename;
         queue.delItem(url);
         ssfilename << id << "_" << fileCount++ << "_" << url << ".html";
@@ -73,10 +75,14 @@ void WebBot::client() {
         webRequest->download(url,filename);
     }
 }
+
 /*
  * erstellt einen reader thread und mehrere client threads
  */
 void WebBot::run(){
-    reader();
-    client();
+    thread producer(&WebBot::reader, this); // Quelle https://stackoverflow.com/questions/10673585/start-thread-with-member-function
+    for(int i = 0; i < threadCount;i++){
+        thread consumer(&WebBot::client, this);
+    }
+
 }

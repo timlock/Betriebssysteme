@@ -10,11 +10,12 @@ class Queue {
 private:
     vector<string> buf ;
     int capacity;
+    int delay;
     long head, tail;
     bool full, empty;
 public:
     std::mutex mut;
-    std::condition_variable notFull, notEmpty;
+    std::condition_variable notFull, notEmpty,done;
 public:
     Queue(int capacity);
     Queue() = default;
