@@ -5,19 +5,45 @@
  *************************************************************/
 #include "WebBot.h"
 
-
-WebBot::WebBot(int queueSize, int threadCount, const string &steuerDatei) : threadCount(threadCount), queue(queueSize), steuerDatei(steuerDatei){
+/*
+ * Konstruktor
+ * @param queueSize int Größe der Queue
+ * @param threadCount int Anzahl der Consumer/Client threads
+ * @param steuerDatei string name der Datei mit den Links der Webseiten die heruntergeladen werden sollen
+ *
+ */
+WebBot::WebBot(int queueSize, int threadCount, const string &steuerDatei, int delay)
+: threadCount(threadCount), queue(queueSize), steuerDatei(steuerDatei), delay(delay){
 }
 
+/*
+ * initialisiert die Klasse WebRequest
+ * Parameter stammen aus der BeispielDatei von webRequest
+ * 1) Name der steuerDate
+ * 2) Länge des Delays in ms
+ * 3) ?
+ */
 void WebBot::initialize(){
-    /*
     char *argv[3];
-    argv[0] = "testSites_10_2019.txt";
-    argv[1] = "--webreq-delay 100 ";
+    argv[0] = (char*)steuerDatei.c_str();
+    string tmpDelay("--webreq-delay");
+    tmpDelay.append(to_string(delay));
+    argv[1] = (char*)tmpDelay.c_str();
     argv[2] = "--webreq-path download";
     webRequest = new WebRequest(3,argv);
-     */
+
 }
+/*
+ * Entfernt alle '/' aus dem Dateinamen, da in Linux '/' nicht bestandteil eines Dateinamens sein darf
+ * @param input string
+ */
+void WebBot::removeSlash(string &input){
+    replace( input.begin(), input.end(), '/', '\\');
+}
+
+/*
+ * Liest Zeilenweise die Links der SteuerDatei in die Queue
+ */
 void WebBot::reader() {
     fstream file(steuerDatei);
     if(!file){
@@ -30,34 +56,26 @@ void WebBot::reader() {
         queue.addItem((char*)input.c_str());
     }
 }
+/*
+ * Nimmt einen Link aus der Queue und lädt die html runter und speichert sie unter
+ * <threadId>_<Zeilennummer des Links in der SteuerDatei>_<link>.html
+ */
 void WebBot::client() {
     int id = threadID++;
     string url;
-    fstream f;
-    f.open( "fooey.txt", ios::out );
-    f << flush;
-    f.close();
     while(!queue.isEmpty()){
-        stringstream filename;
+        stringstream ssfilename;
         queue.delItem(url);
-        filename << id << "_" << fileCount++ << "_" << url << ".html";
-        cout << filename.str() << endl;
-        fstream file;
-        file.open(filename.str(), ios::out);
-        file << flush;
-        if(!file) cerr << "Kann Datei nicht erstellen\n";
-        file.close();
-        char *argv[3];
-        argv[0] = "testSites_10_2019.txt";
-        argv[1] = "--webreq-delay 100 ";
-        string tmp("--webreq-path ");
-        tmp.append(filename.str());
-        argv[2] = (char*) tmp.c_str();
-        WebRequest webRequest(3,argv);
-       // webRequest.download(url,filename.str());
+        ssfilename << id << "_" << fileCount++ << "_" << url << ".html";
+        string filename(ssfilename.str());
+        removeSlash(filename);
+        cout << filename << endl;
+        webRequest->download(url,filename);
     }
 }
-
+/*
+ * erstellt einen reader thread und mehrere client threads
+ */
 void WebBot::run(){
     reader();
     client();

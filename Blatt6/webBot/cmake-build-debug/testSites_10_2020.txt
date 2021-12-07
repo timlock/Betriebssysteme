@@ -1,5 +1,5 @@
-https:www.google.de
-https:duckduckgo.com
+https://www.google.de/
+https://duckduckgo.com/
 https://www.bing.com/
 
 https://www.facebook.com/
