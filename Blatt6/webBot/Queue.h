@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <vector>
 #include <thread>
 #include <mutex>
@@ -12,12 +13,10 @@ private:
     int capacity;
     int delay;
     long head, tail;
-    bool full, empty;
+    bool full, empty, debug;
+
 public:
-    std::mutex mut;
-    std::condition_variable notFull, notEmpty,done;
-public:
-    Queue(int capacity);
+    Queue(int capacity,bool debug);
     Queue() = default;
     ~Queue() = default;
     void addItem(const string &in);

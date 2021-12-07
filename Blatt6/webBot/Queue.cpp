@@ -1,7 +1,7 @@
 #include "Queue.h"
 
 
-Queue::Queue (int capacity) : capacity(capacity), buf(capacity, ""){
+Queue::Queue (int capacity, bool debug) : capacity(capacity), buf(capacity, ""), debug(debug){
     empty = true;
     full = false;
     head = 0;
@@ -10,10 +10,11 @@ Queue::Queue (int capacity) : capacity(capacity), buf(capacity, ""){
 
 
 void Queue::addItem(const string &in) {
-    unique_lock<mutex> lock(mut);
-    notFull.wait(lock, [this](){return !this->empty;}); // thread wartet bis die Bedienung wahr wird und gibt das mutex wieder frei,
-    // lambda soll verhindern, dass der thread weiterläuft, falls der thread ausversehen aufwacht
+
     buf[tail] = in;
+    if(debug){
+        cout << "READER hat " << in << " gespeichert Tail: " << tail << " head: " << head << endl;
+    }
     tail = (tail + 1) % capacity;
 //    if (tail == capacity)
 //        tail = 0;
@@ -21,13 +22,10 @@ void Queue::addItem(const string &in) {
         full = true;
     }
     empty = false;
-    notEmpty.notify_all();
-    mut.unlock();
 }
 
 void Queue::delItem (string & out) {
-    unique_lock<mutex> lock(mut);
-    notEmpty.wait(lock, [this](){return !this->full;});
+
     out = buf[head];
     head = (head + 1) % capacity;
 //    if (head == capacity)
@@ -35,8 +33,7 @@ void Queue::delItem (string & out) {
     if (head == tail)
         empty = true;
     full = false;
-    notFull.notify_one();
-    mut.unlock();
+
 }
 
 bool Queue::isFull() { return full; }

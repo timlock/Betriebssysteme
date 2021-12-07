@@ -23,10 +23,14 @@ int threadID = 1;
 int fileCount = 0;
 const string steuerDatei;
 int delay;
-
+bool readComplete = false;
+bool debug = true;
+public:
+    std::mutex mut;
+    std::condition_variable notFull, notEmpty,done;
 public:
 WebBot() = delete; // es darf nur der überladene Konstruktor verwendet werden
-WebBot(int queuesize, int threadCount, const string &steuerDatei,int delay);
+WebBot(int queuesize, int threadCount, const string &steuerDatei,int delay, bool debug);
 ~WebBot() = default;
 void initialize();
 void reader();

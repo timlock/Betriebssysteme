@@ -12,8 +12,8 @@
  * @param steuerDatei string name der Datei mit den Links der Webseiten die heruntergeladen werden sollen
  *
  */
-WebBot::WebBot(int queueSize, int threadCount, const string &steuerDatei, int delay)
-: threadCount(threadCount), queue(queueSize), steuerDatei(steuerDatei), delay(delay){
+WebBot::WebBot(int queueSize, int threadCount, const string &steuerDatei, int delay,bool debug)
+: threadCount(threadCount), queue(queueSize,debug), steuerDatei(steuerDatei), delay(delay),  debug(debug){
 }
 
 /*
@@ -52,10 +52,16 @@ void WebBot::reader() {
     string input;
     while (file>> input){
         this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
-        if(queue.isFull());
+        unique_lock<mutex> lock(mut);
+        notFull.wait(lock); // thread wartet bis die Bedienung wahr wird und gibt das mutex wieder frei,
+        // notFull.wait(lock, [this](){return !this->empty;}); //lambda soll verhindern, dass der thread weiterläuft, falls der thread ausversehen aufwacht
 
         queue.addItem((char*)input.c_str());
+        notEmpty.notify_all();
+        mut.unlock();
     }
+    cout << "SteurDatei ist leer\n";
+    readComplete = true;
 }
 /*
  * Nimmt einen Link aus der Queue und lädt die html runter und speichert sie unter
@@ -64,10 +70,15 @@ void WebBot::reader() {
 void WebBot::client() {
     int id = threadID++;
     string url;
-    while(!queue.isEmpty()){
+    while(!readComplete){
         this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
+        unique_lock<mutex> lock(mut);
+        notEmpty.wait(lock);
+        // , [this](){return !this->full;}
         stringstream ssfilename;
         queue.delItem(url);
+        notFull.notify_one();
+        mut.unlock();
         ssfilename << id << "_" << fileCount++ << "_" << url << ".html";
         string filename(ssfilename.str());
         removeSlash(filename);
@@ -82,8 +93,12 @@ void WebBot::client() {
 void WebBot::run(){
     thread producer(&WebBot::reader, this); // Quelle https://stackoverflow.com/questions/10673585/start-thread-with-member-function
     thread consumer[threadCount];
-    for(int i = 0; i < threadCount;i++){
-        consumer[i] = thread(&WebBot::client, this);
-    }
+//    for(int i = 0; i < threadCount;i++){
+//        consumer[i] = thread(&WebBot::client, this);
+//    }
+    producer.join();
+//    for(int i = 0; i < threadCount; i++){
+//        consumer[i].join();
+//    }
 
 }
