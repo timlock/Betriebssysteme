@@ -13,7 +13,7 @@ void Queue::addItem(const string &in) {
 
     buf[tail] = in;
     if(debug){
-        cout << "READER hat " << in << " gespeichert Tail: " << tail << " head: " << head << endl;
+        cout << "READER schreibt " << in << " Tail: " << tail << " head: " << head << endl;
     }
     tail = (tail + 1) % capacity;
 //    if (tail == capacity)

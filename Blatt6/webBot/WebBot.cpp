@@ -50,15 +50,17 @@ void WebBot::reader() {
       cerr << "Datei " << steuerDatei << " kann nicht geoeffnet werden\n";
     }
     string input;
-    while (file>> input){
+    while (file >> input){ // Liest Zeilenweise die Einträge der SteuerDatei in den String input
+        unique_lock<mutex> lock(mut); // Kritischer Abschnitt wird erreicht, Thread erhält den Mutex. kein anderer Thread kann nun in einen kritischen Bereich eintreten
+        queue.addItem((char*)input.c_str()); // Link aus der SteuerDatei wird zur Queue hinzugefügt
+        notEmpty.notify_all(); // Andere Threads werden informiert, dass in der Queue verfügbare Elemente sind
+        if(debug) cout << "notEmpty" << endl;
+        if(queue.isFull()){
+            if(debug) cout << "Queue ist voll\n";
+            notFull.wait(lock, [this](){return !queue.isFull();}); // thread wartet bis die Bedienung wahr wird und gibt in der Zwischenzeit das mutex wieder frei,
+        }
+        //lambda soll verhindern, dass der thread weiterläuft falls er zufällig aufwacht, kann in seltenen Fällen passieren
         this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
-        unique_lock<mutex> lock(mut);
-        notFull.wait(lock); // thread wartet bis die Bedienung wahr wird und gibt das mutex wieder frei,
-        // notFull.wait(lock, [this](){return !this->empty;}); //lambda soll verhindern, dass der thread weiterläuft, falls der thread ausversehen aufwacht
-
-        queue.addItem((char*)input.c_str());
-        notEmpty.notify_all();
-        mut.unlock();
     }
     cout << "SteurDatei ist leer\n";
     readComplete = true;
@@ -68,23 +70,31 @@ void WebBot::reader() {
  * <threadId>_<Zeilennummer des Links in der SteuerDatei>_<link>.html
  */
 void WebBot::client() {
-    int id = threadID++;
+    int id = threadID++; // Jeder thread erhält eine ID
     string url;
-    while(!readComplete){
+    int readFiles = 0;
+    while(!readComplete || !queue.isEmpty()){ // Läuft solange die Steuerdatei ungelesene Einträge hat oder die Queue noch Einträge hat
         this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
-        unique_lock<mutex> lock(mut);
-        notEmpty.wait(lock);
-        // , [this](){return !this->full;}
+        unique_lock<mutex> lock(mut); // Kritischer Bereich wird erreicht und thread erhält das mutex
+        if(queue.isEmpty()){
+            if(debug)cout << id << " wartet auf neue Einträge" << endl;
+            notEmpty.wait(lock, [this](){return !queue.isEmpty();});
+        }
         stringstream ssfilename;
-        queue.delItem(url);
-        notFull.notify_one();
-        mut.unlock();
+        queue.delItem(url); // Inhalt am Kopfende der Queue wird in url gelesen
+        if(debug){
+            cout << "CLIENT " << id << " Liest  " << url << endl;
+        }
+        readFiles++;
+        notFull.notify_one(); // Reader wird informiert, dass wieder Platz in der Queue ist
+        if(debug) cout << "notFUll" << endl;
+        mut.unlock(); // Kritischer Bereich wurde verlassen
         ssfilename << id << "_" << fileCount++ << "_" << url << ".html";
         string filename(ssfilename.str());
         removeSlash(filename);
-        cout << filename << endl;
-        webRequest->download(url,filename);
+        webRequest->download(url,filename); // Download der html Datei
     }
+    cout <<"Thread_ " <<  id << " hat " << readFiles << " gelesen" << endl;
 }
 
 /*
@@ -93,12 +103,12 @@ void WebBot::client() {
 void WebBot::run(){
     thread producer(&WebBot::reader, this); // Quelle https://stackoverflow.com/questions/10673585/start-thread-with-member-function
     thread consumer[threadCount];
-//    for(int i = 0; i < threadCount;i++){
-//        consumer[i] = thread(&WebBot::client, this);
-//    }
-    producer.join();
-//    for(int i = 0; i < threadCount; i++){
-//        consumer[i].join();
-//    }
+    for(int i = 0; i < threadCount;i++){
+        consumer[i] = thread(&WebBot::client, this);
+    }
+    producer.join(); // main thread wartet auf producer thread, da das Programm nicht  beendet werden darf, solange die anderen threads noch laufen
+    for(int i = 0; i < threadCount; i++){
+        consumer[i].join(); // main thread wartet auf producer thread
+    }
 
 }

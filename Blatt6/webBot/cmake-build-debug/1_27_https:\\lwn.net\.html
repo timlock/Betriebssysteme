@@ -1,0 +1,472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+        <html lang="en">
+        <head><title>Welcome to LWN.net [LWN.net]</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+        <link rel="icon" href="https://static.lwn.net/images/favicon.png"
+              type="image/png">
+        <link rel="alternate" type="application/rss+xml" title="LWN.net headlines" href="https://lwn.net/headlines/newrss">
+        <link rel="stylesheet" href="/CSS/lwn">
+<link rel="stylesheet" href="/CSS/nosub">
+<link rel="stylesheet" href="/CSS/pure-min">
+           <!--[if lte IE 8]>
+             <link rel="stylesheet" href="/CSS/grids-responsive-old-ie-min">
+           <![endif]-->
+           <!--[if gt IE 8]><!-->
+             <link rel="stylesheet" href="/CSS/grids-responsive-min">
+           <!--<![endif]-->
+           <link rel="stylesheet" href="/CSS/pure-lwn">
+           
+        
+<script type="text/javascript">var p="http",d="static";if(document.location.protocol=="https:"){p+="s";d="engine";}var z=document.createElement("script");z.type="text/javascript";z.async=true;z.src=p+"://"+d+".adzerk.net/ados.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(z,s);</script>
+<script type="text/javascript">
+var ados_keywords = ados_keywords || [];
+if( location.protocol=='https:' ) {
+        ados_keywords.push('T:SSL');
+} else {
+        ados_keywords.push('T:HTTP');
+}
+
+var ados = ados || {};
+ados.run = ados.run || [];
+ados.run.push(function() {
+
+ados_add_placement(4669, 20979, "azk13321_leaderboard", 4).setZone(16026);
+
+ados_add_placement(4669, 20979, "azk93271_right_zone", [5,10,6]).setZone(16027);
+
+ados_add_placement(4669, 20979, "azk31017_tracking", 20).setZone(20995);
+
+ados_keywords.push('S:Homepage');
+
+ados_setKeywords(ados_keywords.join(', ')); 
+ados_load();
+});</script>
+
+        </head>
+        <body bgcolor="#ffffff" link="Blue" VLINK="Green" alink="Green">
+        <a name="t"></a>
+<div id="menu"><a href="/"><img src="https://static.lwn.net/images/logo/barepenguin-70.png" class="logo"
+                 border="0" alt="LWN.net Logo">
+           <font class="logo">LWN<br>.net</font>
+           <font class="logobl">News from the source</font></a>
+           <a href="/"><img src="https://static.lwn.net/images/lcorner-ss.png" class="sslogo"
+                 border="0" alt="LWN"></a><div class="navmenu-container">
+           <ul class="navmenu">
+        <li><a class="navmenu" href="#t"><b>Content</b></a><ul><li><a href="/current/">Weekly Edition</a></li><li><a href="/Archives/">Archives</a></li><li><a href="/Search/">Search</a></li><li><a href="/Kernel/">Kernel</a></li><li><a href="/Security/">Security</a></li><li><a href="/Distributions/">Distributions</a></li><li><a href="/Calendar/">Events calendar</a></li><li><a href="/Comments/unread">Unread comments</a></li><li><hr></li><li><a href="/op/FAQ.lwn">LWN FAQ</a></li><li><a href="/op/AuthorGuide.lwn">Write for us</a></li></ul></li>
+</ul></div>
+</div> <!-- menu -->
+<div class="pure-g not-handset" style="margin-left: 10.5em">
+           <div class="not-print">
+             <div id="azk13321_leaderboard"></div>
+           </div>
+           </div>
+        <div class="topnav-container">
+<div class="not-handset"><form action="https://lwn.net/Login/" method="post" name="loginform"
+                 class="loginform">
+        <label><b>User:</b> <input type="text" name="Username" value="" size="8" id="uc" /></label> 
+		<label><b>Password:</b> <input type="password" name="Password" size="8" id="pc" /></label> <input type="hidden" name="target" value="" /> <input type="submit" name="submit" value="Log in" /></form> |
+           <form action="https://lwn.net/subscribe/" method="post" class="loginform">
+           <input type="submit" name="submit" value="Subscribe" />
+           </form> |
+           <form action="https://lwn.net/Login/newaccount" method="post" class="loginform">
+           <input type="submit" name="submit" value="Register" />
+           </form>
+        </div>
+               <div class="handset-only">
+               <a href="/subscribe/"><b>Subscribe</b></a> /
+               <a href="/Login/"><b>Log in</b></a> /
+               <a href="/Login/newaccount"><b>New account</b></a>
+               </div>
+               </div><div class="pure-grid maincolumn">
+<div class="lwn-u-1 pure-u-md-19-24">
+<div class="PageHeadline">
+<h1>Welcome to LWN.net</h1>
+</div>
+<div class="ArticleText">
+<blockquote style="margin-top: 0">
+       LWN.net is a reader-supported news site dedicated to producing the best
+       coverage from within the Linux and free software development communities.
+       See <a href="/op/FAQ.lwn">the LWN FAQ</a> for more information, and
+       please consider <a href="/subscribe/Info">subscribing</a> to gain full
+       access and support our activities.
+       </blockquote>
+       <p>
+       <div class="FPBox"><div class="FPLeft">
+<h2 class="Headline">[<font class="Subscription">$</font>] A reference-count tracking infrastructure</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 6, 2021 18:28 UTC (Mon) by corbet</font>
+        <p>
+        Reference counts are a commonly used mechanism for tracking the life cycle
+of objects in a computing system.  As long as every user of an object
+correctly maintains its references by incrementing and decrementing the
+reference count, that object will persist for as long as it
+is needed
+and will be properly destroyed once the last user is done.  The "correctly"
+in that sentence is important, though; things do not work
+as well in the presence of reference-counting errors.  Networking
+developer Eric Dumazet is working on <a href="/ml/netdev/20211205042217.982127-1-eric.dumazet@gmail.com/">a
+reference-count tracking system</a> that could prove useful for finding
+these errors in the networking subsystem and, someday, throughout the kernel.
+
+        <p>
+        <a href="/Articles/877603/">Full Story</a> (<a href="/Articles/877603/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] A filesystem for namespaces</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 3, 2021 14:40 UTC (Fri) by corbet</font>
+        <p>
+        It is natural, when looking at the kernel development process, to focus on
+patches that find their way to acceptance and become a part of future
+kernels.  But there can be value in looking at work that doesn't clear the
+bar; in failing, these patches often reveal things about the kernel and the
+community that creates it.  Such is the case with the <a
+href="/ml/linux-kernel/20211118181210.281359-1-y.karadz@gmail.com/">proof-of-concept
+namespacefs
+patch series</a> recently posted by Yordan Karadzhov.  One should not
+expect to see namespacefs in a future kernel but, in failing, this work
+showed a real use case and why it is hard to satisfy that use case in the
+kernel.
+
+        <p>
+        <a href="/Articles/877308/">Full Story</a> (<a href="/Articles/877308/#Comments">comments: 12</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] Detecting missing memory barriers with KCSAN</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 2, 2021 19:02 UTC (Thu) by corbet</font>
+        <p>
+        Writing (correct) concurrent code that uses locking to avoid race
+conditions is difficult enough.  When the objective is to use <a
+href="/Articles/844224/">lockless algorithms</a>, relying on memory
+barriers instead of locks to eliminate locking overhead, the problem
+becomes harder 
+still.  Bugs are easy to create and hard to find in this type of code.
+There may be some help on the way, though, in the form of <a
+href="/ml/linux-kernel/20211130114433.2580590-1-elver@google.com/">this
+patch set</a> from Marco Elver that enhances the <a
+href="https://www.kernel.org/doc/html/latest/dev-tools/kcsan.html">Kernel
+Concurrency 
+Sanitizer</a> (KCSAN) with  the ability to detect some types of missing
+memory barriers.
+
+        <p>
+        <a href="/Articles/877200/">Full Story</a> (<a href="/Articles/877200/#Comments">comments: 11</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] LWN.net Weekly Edition for December 2, 2021</h2>
+        
+        <font size="-1">Posted Dec 2, 2021 0:53 UTC (Thu)</font><p>
+        The LWN.net Weekly Edition for December 2, 2021 is available.
+<p>
+        <b>Inside this week's LWN.net Weekly Edition</b>
+        <ul>
+<li> <a href="/Articles/876363/">Front</a>: Git forges for Fedora; Python identifiers; Kernel warnings; Resource-limit defaults; BPF loops.
+            <li> <a href="/Articles/876365/">Briefs</a>: Amazon AL2022; Julia 1.7; PHP 8.1; Vizio lawsuit update; ...
+            <li> <a href="/Articles/876366/">Announcements</a>: Newsletters; conferences; security updates; kernel patches; ...
+            </ul>
+<a href="/Articles/876363/">Read more</a>
+<p>
+
+<h2 class="Headline">[<font class="Subscription">$</font>] Fedora revisits the Git-forge debate</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Distributions] Posted Dec 1, 2021 22:18 UTC (Wed) by jake</font>
+        <p>
+        A seemingly straightforward question aimed at candidates for the in-progress
+<a
+href="https://communityblog.fedoraproject.org/f35-elections-voting-now-open/">Fedora
+elections</a> led to a discussion on the Fedora devel mailing list that
+branched into a few different directions.  The question was related to a
+struggle that the distribution has had before: whether using non-free Git
+forges is appropriate.  One of the
+differences this time, though, is that the focus is on where <a
+href="https://packit.dev/docs/source-git/">source-git</a> (or src-git)
+repositories will be hosted, which is a separate question from where the <a
+href="https://src.fedoraproject.org/rpms/dist-git">dist-git repository</a>
+lives.
+
+        <p>
+        <a href="/Articles/877240/">Full Story</a> (<a href="/Articles/877240/#Comments">comments: 16</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] Python identifiers, PEP 8, and consistency</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Nov 30, 2021 22:14 UTC (Tue) by jake</font>
+        <p>
+        While there are few rules on the names of variables, classes, functions,
+and so on (i.e. identifiers) in the Python language, there are some
+guidelines on how those things should be named.   But, of course, those
+guidelines were not always followed in 
+the standard library, especially in the early years of the project.  A
+suggestion to add aliases to the standard library for
+identifiers that do not follow the guidelines seems highly unlikely to go
+anywhere, but it led to an interesting 
+discussion on the python-ideas mailing list.
+
+        <p>
+        <a href="/Articles/877115/">Full Story</a> (<a href="/Articles/877115/#Comments">comments: 10</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] A different approach to BPF loops</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Nov 29, 2021 22:02 UTC (Mon) by corbet</font>
+        <p>
+        One of the key features of the extended BPF virtual machine is the verifier
+built into the kernel that ensures that all BPF programs are safe to run.
+BPF developers often see the verifier as a bit of a mixed blessing, though;
+while it can catch a lot of problems before they happen, it can also be
+hard to please.  Comparisons with a well-meaning but rule-bound and picky
+bureaucracy would not be entirely misplaced.  The <a
+href="/ml/bpf/20211123183409.3599979-1-joannekoong@fb.com/"><tt>bpf_loop()</tt>
+proposal</a> from Joanne Koong is an attempt to make pleasing the BPF
+bureaucrats a bit easier for one type of loop construct.
+
+        <p>
+        <a href="/Articles/877062/">Full Story</a> (<a href="/Articles/877062/#Comments">comments: 72</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] In search of an appropriate RLIMIT_MEMLOCK default</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Nov 19, 2021 17:41 UTC (Fri) by corbet</font>
+        <p>
+        One does not normally expect a lot of disagreement over a 13-line patch
+that effectively tweaks a single line of code.  Occasionally, though, such
+a patch can expose a disagreement over how the behavior of the kernel
+should be managed.  <a
+href="/ml/linux-kernel/20211028080813.15966-1-sir@cmpwn.com/">This patch
+from Drew DeVault</a>, who is evidently taking a break from <a
+href="https://drewdevault.com/2021/11/16/Cash-for-leftpad.html">stirring up
+the npm community</a>, is a case in point.  It brings to light the question
+of how  the kernel community should pick default values for configurable
+parameters like resource limits.
+
+        <p>
+        <a href="/Articles/876288/">Full Story</a> (<a href="/Articles/876288/#Comments">comments: 35</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] What to do in response to a kernel warning</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Nov 18, 2021 17:39 UTC (Thu) by corbet</font>
+        <p>
+        The kernel provides a number of macros internally to allow code to generate
+warnings when something goes wrong.  It does not, however, provide a lot of
+guidance regarding what should happen when a warning is issued.  Alexander
+Popov recently posted <a
+href="/ml/linux-kernel/20211027233215.306111-1-alex.popov@linux.com/">a
+patch series</a> adding an option for the system's response to warnings;
+that series seems unlikely to be applied in anything close to its current
+form, but it did succeed in provoking a discussion on how warnings should
+be handled.
+
+        <p>
+        <a href="/Articles/876209/">Full Story</a> (<a href="/Articles/876209/#Comments">comments: 22</a>)
+<p>
+</div>
+<h2 class="Headline">LWN.net Weekly Edition for November 18, 2021</h2>
+        
+        <font size="-1">Posted Nov 18, 2021 0:28 UTC (Thu)</font><p>
+        The LWN.net Weekly Edition for November 18, 2021 is available.
+<p>
+        <b>Inside this week's LWN.net Weekly Edition</b>
+        <ul>
+<li> <a href="/Articles/875755/">Front</a>: Rollercoaster; Trojan Source and Python; Showing Trojan Source exploits in Emacs; Memory-management patches; 5.16 Merge window.
+            <li> <a href="/Articles/875757/">Briefs</a>: ClusterFuzzLite; Linux 5.16-rc1; Git 2.34; 12 years of Go; Quotes; ...
+            <li> <a href="/Articles/875758/">Announcements</a>: Newsletters; conferences; security updates; kernel patches; ...
+            </ul>
+<a href="/Articles/875755/">Read more</a>
+<p>
+
+</div>
+<div class="FPRight">
+<h2 class="Headline">Linux Foundation 2021 annual report</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Briefs] Posted Dec 6, 2021 23:08 UTC (Mon) by corbet</font>
+        <p>
+        For those who would like to catch up on what the Linux Foundation has been
+doing, the <a
+href="https://www.linuxfoundation.org/tools/linux-foundation-annual-report-2021/">2021
+annual report</a> is available as an 87-page PDF file.
+<p>
+<blockquote class="bq">
+	In 2021, The Linux Foundation continued to see organizations
+	embrace open collaboration and open source principles, accelerating
+	new innovations, approaches, and best practices. As a community, we
+	made significant progress in the areas of cloud-native computing,
+	5G networking, software supply chain security, 3D gaming, and a
+	host of new industry and social initiatives.
+</blockquote>
+        <p>
+        <a href="/Articles/877844/">Comments (1 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Monday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 6, 2021 16:06 UTC (Mon) by ris</font>
+        <p>
+        Security updates have been issued by <b>Arch Linux</b> (isync, lib32-nss, nss, opera, and vivaldi), <b>Debian</b> (gerbv and xen), <b>Fedora</b> (autotrace, chafa, converseen, digikam, dmtx-utils, dvdauthor, eom, kxstitch, libsndfile, nss, pfstools, php-pecl-imagick, psiconv, q, R-magick, rss-glx, rubygem-rmagick, seamonkey, skopeo, synfig, synfigstudio, vdr-scraper2vdr, vdr-skinelchihd, vdr-skinnopacity, vdr-tvguide, vim, vips, and WindowMaker), <b>Mageia</b> (golang, kernel, kernel-linus, mariadb, and vim), <b>openSUSE</b> (aaa_base, python-Pygments, singularity, and tor), <b>Red Hat</b> (nss), <b>Slackware</b> (mozilla), <b>SUSE</b> (aaa_base, kernel, openssh, php74, and xen), and <b>Ubuntu</b> (libmodbus, lrzip, samba, and uriparser).
+
+        <p>
+        <a href="/Articles/877821/">Full Story</a> (<a href="/Articles/877821/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">Kernel prepatch 5.16-rc4</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 5, 2021 23:59 UTC (Sun) by corbet</font>
+        <p>
+        The <a href="/Articles/877723/">fourth 5.16 kernel prepatch</a> is out for
+testing.  "<span>Nothing looks all that scary, although I certainly hope
+the kvm side will calm down</span>".
+        <p>
+        <a href="/Articles/877724/">Comments (1 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Introducing CentOS Stream 9</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Distributions] Posted Dec 3, 2021 15:56 UTC (Fri) by jake</font>
+        <p>
+        The CentOS blog has <a href="https://blog.centos.org/2021/12/introducing-centos-stream-9/">announced</a> the release of <a href="https://centos.org/stream9/">CentOS Stream&nbsp;9</a>:
+<blockquote class="bq">
+CentOS Stream is a continuous-delivery distribution providing each point-release of Red Hat Enterprise Linux (RHEL). Before a package is formally introduced to CentOS Stream, it undergoes a battery of tests and checks—both automated and manual—to ensure it meets the stringent standards for inclusion in RHEL. Updates posted to Stream are identical to those posted to the unreleased minor version of RHEL. The aim? For CentOS Stream to be as fundamentally stable as RHEL itself.
+<p>
+To achieve this stability, each major release of Stream starts from a stable release of Fedora Linux—In CentOS Stream 9, this begins with Fedora 34, which is the same code base from which RHEL 9 is built. As updated packages pass testing and meet standards for stability, they are pushed into CentOS Stream as well as the nightly build of RHEL. 
+</blockquote>
+        <p>
+        <a href="/Articles/877599/#Comments">Comments (15 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Friday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 3, 2021 14:00 UTC (Fri) by jake</font>
+        <p>
+        Security updates have been issued by <b>CentOS</b> (krb5 and mailman), <b>Debian</b> (gmp and librecad), <b>Fedora</b> (php-symfony4 and wireshark), <b>Mageia</b> (bluez, busybox, docker-containerd, gfbgraph, hivex, nss, perl/perl-Encode, and udisks2/libblockdev), <b>openSUSE</b> (permissions), <b>Oracle</b> (mailman and mailman:2.1), <b>Red Hat</b> (mailman, mailman:2.1, and nss), <b>Scientific Linux</b> (mailman and nss), and <b>SUSE</b> (nodejs14).
+
+        <p>
+        <a href="/Articles/877582/">Full Story</a> (<a href="/Articles/877582/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">Rust 1.57.0 released</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Dec 2, 2021 15:24 UTC (Thu) by corbet</font>
+        <p>
+        <a href="https://blog.rust-lang.org/2021/12/02/Rust-1.57.0.html">Version
+1.57.0</a> of the Rust language is out.  "<span>Rust 1.57 brings panic! to
+const contexts, adds support for custom profiles to Cargo, and stabilizes
+fallible reservation APIs.</span>"
+        <p>
+        <a href="/Articles/877422/">Comments (none posted)</a>
+<p>
+</div>
+<h2 class="Headline">This shouldn't have happened: A vulnerability postmortem (Project Zero blog)</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 2, 2021 14:58 UTC (Thu) by jake</font>
+        <p>
+        Over on the Project Zero blog, Tavis Ormandy has a <a href="https://googleprojectzero.blogspot.com/2021/12/this-shouldnt-have-happened.html">lengthy postmortem</a> on a <a href="https://www.mozilla.org/en-US/security/advisories/mfsa2021-51/">vulnerability</a> that he found in the <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Overview">Network Security Services</a> (NSS) cryptography library.  The vulnerability is a bog-standard buffer overflow that has existed in the library since 2012 despite various kinds of static analysis, testing, and fuzzing that Mozilla and others have applied to it over the years.  He found it with a new fuzzing technique:
+<blockquote class="bq">
+To solve this problem, I’ve been experimenting with monitoring the call stack during execution.
+<p>
+The naive implementation is too slow to be practical, but after a lot of optimization I had come up with a library that was fast enough to be integrated into coverage-guided fuzzing, and was testing how it performed with NSS and other libraries.
+<p>
+[...] The fuzzer I was using is able to isolate and extract interesting new ASN.1 OIDs, SEQUENCEs, INTEGERs, and so on. Once extracted, it can then randomly combine or insert them into template data. This isn’t really a new idea, but is a new implementation. I'm planning to open source this code in the future.
+</blockquote>
+        <p>
+        <a href="/Articles/877420/#Comments">Comments (69 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Thursday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 2, 2021 13:43 UTC (Thu) by jake</font>
+        <p>
+        Security updates have been issued by <b>CentOS</b> (kernel, openssh, and rpm), <b>Debian</b> (nss), <b>Fedora</b> (seamonkey), <b>Mageia</b> (glibc), <b>openSUSE</b> (go1.16, go1.17, kernel, mariadb, netcdf, openexr, poppler, python-Pygments, python-sqlparse, ruby2.5, speex, and webkit2gtk3), <b>Oracle</b> (nss), <b>Red Hat</b> (nss), <b>SUSE</b> (clamav, glibc, gmp, go1.16, go1.17, kernel, mariadb, netcdf, OpenEXR, openexr, openssh, poppler, python-Pygments, python-sqlparse, ruby2.1, ruby2.5, speex, webkit2gtk3, and xen), and <b>Ubuntu</b> (nss and thunderbird).
+
+        <p>
+        <a href="/Articles/877410/">Full Story</a> (<a href="/Articles/877410/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">SFC: First Update on the Vizio lawsuit</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Briefs] Posted Dec 1, 2021 17:57 UTC (Wed) by ris</font>
+        <p>
+        The Software Freedom Conservancy <a
+href="https://sfconservancy.org/blog/2021/nov/30/vizio-update-0/">provides
+an update</a> on its <a href="/Articles/873338/">suit against Vizio</a> for
+copyleft license violations.  Vizio's response was not to release the
+source code:
+<blockquote class="bq">
+Instead, Vizio <a
+href="https://storage.courtlistener.com/recap/gov.uscourts.cacd.837808/gov.uscourts.cacd.837808.1.0.pdf">filed
+a request to "remove" the case from California State Court (into US federal
+court)</a>, which indicates Vizio's belief that consumers have no
+third-party beneficiary rights under <a href="https://sfconservancy.org/copyleft-compliance/glossary.html#copyleft">copyleft</a>! In other words, Vizio’s
+answer to this complaint is not to comply with the copyleft licenses, but instead imply that Software Freedom Conservancy — and all other purchasers of the devices who might want to assert their right under GPL and LGPL to complete, corresponding source — have no right to even ask for that source code.
+</blockquote>
+        <p>
+        <a href="/Articles/877294/#Comments">Comments (36 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Stable kernel updates</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 1, 2021 16:16 UTC (Wed) by ris</font>
+        <p>
+        Stable kernels <a href="/Articles/877286/">5.15.6</a>, <a
+href="/Articles/877287/">5.10.83</a>, <a
+href="/Articles/877288/">5.4.163</a>, and <a
+href="/Articles/877289/">4.19.219</a> have been released. They all contain
+important fixes throughout the tree.  Users of those series should upgrade.
+        <p>
+        <a href="/Articles/877285/">Comments (none posted)</a>
+<p>
+</div>
+</div>
+       </div>
+       <p><a href="/Articles/?offset=10">--&gt; More news items</a>
+       
+</div> <!-- ArticleText -->
+</div>
+<div class="lwn-u-1 pure-u-md-1-6 not-print">
+<div id="azk93271_right_zone"></div>
+</div>
+</div> <!-- pure-grid -->
+
+        <br clear="all">
+        <center>
+        <P>
+        <font size="-2">
+        Copyright &copy; 2021, Eklektix, Inc.<BR>
+        
+        Comments and public postings are copyrighted by their creators.<br>
+        Linux  is a registered trademark of Linus Torvalds<br>
+        </font>
+        </center>
+        
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+            <script type="text/javascript">
+            try {
+            var pageTracker = _gat._getTracker("UA-2039382-1");
+            pageTracker._trackPageview();
+            } catch(err) {}</script>
+            
+        </body></html>
+        
