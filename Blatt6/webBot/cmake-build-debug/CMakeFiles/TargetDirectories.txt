@@ -1,3 +1,3 @@
 /home/timlock/Betriebssysteme/Blatt6/webBot/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /home/timlock/Betriebssysteme/Blatt6/webBot/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/timlock/Betriebssysteme/Blatt6/webBot/cmake-build-debug/CMakeFiles/clionBot.dir
+/home/timlock/Betriebssysteme/Blatt6/webBot/cmake-build-debug/CMakeFiles/webBot.dir

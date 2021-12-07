@@ -1,4 +1,5 @@
-#pragma once 
+#pragma once
+#include <vector>
 #include <thread>
 #include <mutex>
 #include <atomic>
@@ -7,7 +8,7 @@ using namespace std;
 
 class Queue {
 private:
-    int *buf;
+    vector<string> buf ;
     int capacity;
     long head, tail;
     bool full, empty;
@@ -18,8 +19,8 @@ public:
     Queue(int capacity);
     Queue() = default;
     ~Queue() = default;
-    void addItem(int in);
-    void delItem(int *out);
+    void addItem(const string &in);
+    void delItem(string & out);
     bool isFull();
     bool isEmpty();
 };

@@ -1,7 +1,7 @@
 #include "Queue.h"
 
 
-Queue::Queue (int capacity) : capacity(capacity){
+Queue::Queue (int capacity) : capacity(capacity), buf(capacity, ""){
     empty = true;
     full = false;
     head = 0;
@@ -9,24 +9,24 @@ Queue::Queue (int capacity) : capacity(capacity){
 }
 
 
-void Queue::addItem(int in) {
+void Queue::addItem(const string &in) {
     buf[tail] = in;
-    tail++;
-    if (tail == capacity)
-        tail = 0;
+    tail = (tail + 1) % capacity;
+//    if (tail == capacity)
+//        tail = 0;
     if (tail == head)
-        full = 1;
-    empty = 0;
+        full = true;
+    empty = false;
 }
 
-void Queue::delItem (int *out) {
-    *out = buf[head];
-    head++;
-    if (head == capacity)
-        head = 0;
+void Queue::delItem (string & out) {
+    out = buf[head];
+    head = (head + 1) % capacity;
+//    if (head == capacity)
+//        head = 0;
     if (head == tail)
-        empty = 1;
-    full = 0;
+        empty = true;
+    full = false;
 }
 
 bool Queue::isFull() { return full; }

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "clionBot"
+			"path" : "webBot"
 		}
 	],
 	"backtrace" : 1,
@@ -79,7 +79,7 @@
 			]
 		}
 	],
-	"id" : "clionBot::@6890427a1f51a3e7e1df",
+	"id" : "webBot::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -100,8 +100,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "clionBot",
-	"nameOnDisk" : "clionBot",
+	"name" : "webBot",
+	"nameOnDisk" : "webBot",
 	"paths" : 
 	{
 		"build" : ".",

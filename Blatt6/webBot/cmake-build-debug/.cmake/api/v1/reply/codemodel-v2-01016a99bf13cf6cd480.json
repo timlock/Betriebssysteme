@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "clionBot::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-clionBot-Debug-4552beb11a5ed562db5e.json",
-					"name" : "clionBot",
+					"id" : "webBot::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-webBot-Debug-568c6826ac250f941a7a.json",
+					"name" : "webBot",
 					"projectIndex" : 0
 				}
 			]

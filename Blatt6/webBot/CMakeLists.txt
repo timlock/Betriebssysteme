@@ -3,7 +3,7 @@ project(webBot)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(clionBot main.cpp Queue.cpp Queue.h WebBot.cpp WebBot.h
+add_executable(webBot main.cpp Queue.cpp Queue.h WebBot.cpp WebBot.h
         web_request/web_request.c web_request/web_request.cpp web_request/ web_request/web_request.h
 
         web_request/curl/curl.h
@@ -21,5 +21,5 @@ add_executable(clionBot main.cpp Queue.cpp Queue.h WebBot.cpp WebBot.h
 set(CURL_LIBRARY "-lcurl")
 find_package(CURL REQUIRED)
 include_directories(${CURL_INCLUDE_DIR})
-target_link_libraries(clionBot ${CURL_LIBRARIES})
+target_link_libraries(webBot ${CURL_LIBRARIES})
 

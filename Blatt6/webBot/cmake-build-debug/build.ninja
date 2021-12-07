@@ -64,60 +64,60 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 # =============================================================================
-# Object build statements for EXECUTABLE target clionBot
+# Object build statements for EXECUTABLE target webBot
 
 
 #############################################
-# Order-only phony target for clionBot
+# Order-only phony target for webBot
 
-build cmake_object_order_depends_target_clionBot: phony || CMakeFiles/clionBot.dir
+build cmake_object_order_depends_target_webBot: phony || CMakeFiles/webBot.dir
 
-build CMakeFiles/clionBot.dir/main.cpp.o: CXX_COMPILER__clionBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/main.cpp || cmake_object_order_depends_target_clionBot
-  DEP_FILE = CMakeFiles/clionBot.dir/main.cpp.o.d
+build CMakeFiles/webBot.dir/main.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/main.cpp || cmake_object_order_depends_target_webBot
+  DEP_FILE = CMakeFiles/webBot.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles/clionBot.dir
-  OBJECT_FILE_DIR = CMakeFiles/clionBot.dir
+  OBJECT_DIR = CMakeFiles/webBot.dir
+  OBJECT_FILE_DIR = CMakeFiles/webBot.dir
 
-build CMakeFiles/clionBot.dir/Queue.cpp.o: CXX_COMPILER__clionBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/Queue.cpp || cmake_object_order_depends_target_clionBot
-  DEP_FILE = CMakeFiles/clionBot.dir/Queue.cpp.o.d
+build CMakeFiles/webBot.dir/Queue.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/Queue.cpp || cmake_object_order_depends_target_webBot
+  DEP_FILE = CMakeFiles/webBot.dir/Queue.cpp.o.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles/clionBot.dir
-  OBJECT_FILE_DIR = CMakeFiles/clionBot.dir
+  OBJECT_DIR = CMakeFiles/webBot.dir
+  OBJECT_FILE_DIR = CMakeFiles/webBot.dir
 
-build CMakeFiles/clionBot.dir/WebBot.cpp.o: CXX_COMPILER__clionBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/WebBot.cpp || cmake_object_order_depends_target_clionBot
-  DEP_FILE = CMakeFiles/clionBot.dir/WebBot.cpp.o.d
+build CMakeFiles/webBot.dir/WebBot.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/WebBot.cpp || cmake_object_order_depends_target_webBot
+  DEP_FILE = CMakeFiles/webBot.dir/WebBot.cpp.o.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles/clionBot.dir
-  OBJECT_FILE_DIR = CMakeFiles/clionBot.dir
+  OBJECT_DIR = CMakeFiles/webBot.dir
+  OBJECT_FILE_DIR = CMakeFiles/webBot.dir
 
-build CMakeFiles/clionBot.dir/web_request/web_request.c.o: C_COMPILER__clionBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/web_request/web_request.c || cmake_object_order_depends_target_clionBot
-  DEP_FILE = CMakeFiles/clionBot.dir/web_request/web_request.c.o.d
+build CMakeFiles/webBot.dir/web_request/web_request.c.o: C_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/web_request/web_request.c || cmake_object_order_depends_target_webBot
+  DEP_FILE = CMakeFiles/webBot.dir/web_request/web_request.c.o.d
   FLAGS = -g
-  OBJECT_DIR = CMakeFiles/clionBot.dir
-  OBJECT_FILE_DIR = CMakeFiles/clionBot.dir/web_request
+  OBJECT_DIR = CMakeFiles/webBot.dir
+  OBJECT_FILE_DIR = CMakeFiles/webBot.dir/web_request
 
-build CMakeFiles/clionBot.dir/web_request/web_request.cpp.o: CXX_COMPILER__clionBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/web_request/web_request.cpp || cmake_object_order_depends_target_clionBot
-  DEP_FILE = CMakeFiles/clionBot.dir/web_request/web_request.cpp.o.d
+build CMakeFiles/webBot.dir/web_request/web_request.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/web_request/web_request.cpp || cmake_object_order_depends_target_webBot
+  DEP_FILE = CMakeFiles/webBot.dir/web_request/web_request.cpp.o.d
   FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles/clionBot.dir
-  OBJECT_FILE_DIR = CMakeFiles/clionBot.dir/web_request
+  OBJECT_DIR = CMakeFiles/webBot.dir
+  OBJECT_FILE_DIR = CMakeFiles/webBot.dir/web_request
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target clionBot
+# Link build statements for EXECUTABLE target webBot
 
 
 #############################################
-# Link the executable clionBot
+# Link the executable webBot
 
-build clionBot: CXX_EXECUTABLE_LINKER__clionBot_Debug CMakeFiles/clionBot.dir/main.cpp.o CMakeFiles/clionBot.dir/Queue.cpp.o CMakeFiles/clionBot.dir/WebBot.cpp.o CMakeFiles/clionBot.dir/web_request/web_request.c.o CMakeFiles/clionBot.dir/web_request/web_request.cpp.o
+build webBot: CXX_EXECUTABLE_LINKER__webBot_Debug CMakeFiles/webBot.dir/main.cpp.o CMakeFiles/webBot.dir/Queue.cpp.o CMakeFiles/webBot.dir/WebBot.cpp.o CMakeFiles/webBot.dir/web_request/web_request.c.o CMakeFiles/webBot.dir/web_request/web_request.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -lcurl
-  OBJECT_DIR = CMakeFiles/clionBot.dir
+  OBJECT_DIR = CMakeFiles/webBot.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = clionBot
-  TARGET_PDB = clionBot.dbg
+  TARGET_FILE = webBot
+  TARGET_PDB = webBot.dbg
 
 # =============================================================================
 # Target aliases.
@@ -130,7 +130,7 @@ build clionBot: CXX_EXECUTABLE_LINKER__clionBot_Debug CMakeFiles/clionBot.dir/ma
 #############################################
 # Folder: /home/timlock/Betriebssysteme/Blatt6/webBot/cmake-build-debug
 
-build all: phony clionBot
+build all: phony webBot
 
 # =============================================================================
 # Built-in targets
