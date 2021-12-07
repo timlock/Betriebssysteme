@@ -1,5 +1,4 @@
 #pragma once
-#include <exception>
 #include <stdexcept>
 #include <string>
 #include "web_request.h"

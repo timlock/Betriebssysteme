@@ -81,8 +81,9 @@ void WebBot::client() {
  */
 void WebBot::run(){
     thread producer(&WebBot::reader, this); // Quelle https://stackoverflow.com/questions/10673585/start-thread-with-member-function
+    thread consumer[threadCount];
     for(int i = 0; i < threadCount;i++){
-        thread consumer(&WebBot::client, this);
+        consumer[i] = thread(&WebBot::client, this);
     }
 
 }

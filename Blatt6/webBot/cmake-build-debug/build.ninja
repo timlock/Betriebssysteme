@@ -74,19 +74,19 @@ build cmake_object_order_depends_target_webBot: phony || CMakeFiles/webBot.dir
 
 build CMakeFiles/webBot.dir/main.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/main.cpp || cmake_object_order_depends_target_webBot
   DEP_FILE = CMakeFiles/webBot.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -pthread -g -std=gnu++14
   OBJECT_DIR = CMakeFiles/webBot.dir
   OBJECT_FILE_DIR = CMakeFiles/webBot.dir
 
 build CMakeFiles/webBot.dir/Queue.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/Queue.cpp || cmake_object_order_depends_target_webBot
   DEP_FILE = CMakeFiles/webBot.dir/Queue.cpp.o.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -pthread -g -std=gnu++14
   OBJECT_DIR = CMakeFiles/webBot.dir
   OBJECT_FILE_DIR = CMakeFiles/webBot.dir
 
 build CMakeFiles/webBot.dir/WebBot.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/WebBot.cpp || cmake_object_order_depends_target_webBot
   DEP_FILE = CMakeFiles/webBot.dir/WebBot.cpp.o.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -pthread -g -std=gnu++14
   OBJECT_DIR = CMakeFiles/webBot.dir
   OBJECT_FILE_DIR = CMakeFiles/webBot.dir
 
@@ -98,7 +98,7 @@ build CMakeFiles/webBot.dir/web_request/web_request.c.o: C_COMPILER__webBot_Debu
 
 build CMakeFiles/webBot.dir/web_request/web_request.cpp.o: CXX_COMPILER__webBot_Debug /home/timlock/Betriebssysteme/Blatt6/webBot/web_request/web_request.cpp || cmake_object_order_depends_target_webBot
   DEP_FILE = CMakeFiles/webBot.dir/web_request/web_request.cpp.o.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -pthread -g -std=gnu++14
   OBJECT_DIR = CMakeFiles/webBot.dir
   OBJECT_FILE_DIR = CMakeFiles/webBot.dir/web_request
 
@@ -111,7 +111,7 @@ build CMakeFiles/webBot.dir/web_request/web_request.cpp.o: CXX_COMPILER__webBot_
 # Link the executable webBot
 
 build webBot: CXX_EXECUTABLE_LINKER__webBot_Debug CMakeFiles/webBot.dir/main.cpp.o CMakeFiles/webBot.dir/Queue.cpp.o CMakeFiles/webBot.dir/WebBot.cpp.o CMakeFiles/webBot.dir/web_request/web_request.c.o CMakeFiles/webBot.dir/web_request/web_request.cpp.o
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_LIBRARIES = -lcurl
   OBJECT_DIR = CMakeFiles/webBot.dir
   POST_BUILD = :
