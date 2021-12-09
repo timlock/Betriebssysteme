@@ -25,7 +25,6 @@ void Queue::addItem(const string &in) {
 }
 
 void Queue::delItem (string & out) {
-
     out = buf[head];
     head = (head + 1) % capacity;
 //    if (head == capacity)

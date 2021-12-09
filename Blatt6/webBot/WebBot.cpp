@@ -29,7 +29,7 @@ void WebBot::initialize(){
     string tmpDelay("--webreq-delay");
     tmpDelay.append(to_string(delay));
     argv[1] = (char*)tmpDelay.c_str();
-    argv[2] = "--webreq-path download";
+    argv[2] = (char*)"--webreq-path download";
     webRequest = new WebRequest(3,argv);
 
 }
@@ -48,6 +48,7 @@ void WebBot::reader() {
     fstream file(steuerDatei);
     if(!file){
       cerr << "Datei " << steuerDatei << " kann nicht geoeffnet werden\n";
+      exit(-1);
     }
     string input;
     while (file >> input){ // Liest Zeilenweise die Einträge der SteuerDatei in den String input
@@ -59,10 +60,11 @@ void WebBot::reader() {
             if(debug) cout << "Queue ist voll\n";
             notFull.wait(lock, [this](){return !queue.isFull();}); // thread wartet bis die Bedienung wahr wird und gibt in der Zwischenzeit das mutex wieder frei,
         }
+        lock.unlock();
         //lambda soll verhindern, dass der thread weiterläuft falls er zufällig aufwacht, kann in seltenen Fällen passieren
         this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
     }
-    cout << "SteurDatei ist leer\n";
+    cout << "__SteurDatei ist leer__\n";
     readComplete = true;
 }
 /*
@@ -78,7 +80,9 @@ void WebBot::client() {
         unique_lock<mutex> lock(mut); // Kritischer Bereich wird erreicht und thread erhält das mutex
         if(queue.isEmpty()){
             if(debug)cout << id << " wartet auf neue Einträge" << endl;
-            notEmpty.wait(lock, [this](){return !queue.isEmpty();});
+            notEmpty.wait(lock, [this](){return !queue.isEmpty() || signalDone;});
+            if(signalDone)break; // Thread befindet sich im Deadlock, da es keine URLs mehr gibt und verlässt die Methode
+            else continue; // Queue hat neue Einträge und der Thread beginnt die Schleife von vorne
         }
         stringstream ssfilename;
         queue.delItem(url); // Inhalt am Kopfende der Queue wird in url gelesen
@@ -88,19 +92,22 @@ void WebBot::client() {
         readFiles++;
         notFull.notify_one(); // Reader wird informiert, dass wieder Platz in der Queue ist
         if(debug) cout << "notFUll" << endl;
-        mut.unlock(); // Kritischer Bereich wurde verlassen
+        lock.unlock(); // Kritischer Bereich wurde verlassen
         ssfilename << id << "_" << fileCount++ << "_" << url << ".html";
         string filename(ssfilename.str());
         removeSlash(filename);
         webRequest->download(url,filename); // Download der html Datei
     }
-    cout <<"Thread_ " <<  id << " hat " << readFiles << " gelesen" << endl;
+    cout <<"__Thread_ " <<  id << " hat " << readFiles << " gelesen__" << endl;
+    signalDone = true; // Queue und SteuerDatei sind leer, Signal wird gegeben um alle wartenden Threads aus dem Deadlock zu befreien
+    notEmpty.notify_all();
 }
 
 /*
  * erstellt einen reader thread und mehrere client threads
  */
 void WebBot::run(){
+    auto start = chrono::steady_clock::now();
     thread producer(&WebBot::reader, this); // Quelle https://stackoverflow.com/questions/10673585/start-thread-with-member-function
     thread consumer[threadCount];
     for(int i = 0; i < threadCount;i++){
@@ -110,5 +117,9 @@ void WebBot::run(){
     for(int i = 0; i < threadCount; i++){
         consumer[i].join(); // main thread wartet auf producer thread
     }
+    auto end = chrono::steady_clock::now();
+    cout << "Elapsed time in milliseconds: "
+         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+         << " ms" << endl;
 
 }

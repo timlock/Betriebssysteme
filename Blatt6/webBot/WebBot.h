@@ -25,6 +25,7 @@ const string steuerDatei;
 int delay;
 bool readComplete = false;
 bool debug = true;
+bool signalDone = false;
 public:
     std::mutex mut;
     std::condition_variable notFull, notEmpty,done;
