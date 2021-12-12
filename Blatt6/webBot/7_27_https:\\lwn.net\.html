@@ -1,0 +1,514 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+        <html lang="en">
+        <head><title>Welcome to LWN.net [LWN.net]</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+        <link rel="icon" href="https://static.lwn.net/images/favicon.png"
+              type="image/png">
+        <link rel="alternate" type="application/rss+xml" title="LWN.net headlines" href="https://lwn.net/headlines/newrss">
+        <link rel="stylesheet" href="/CSS/lwn">
+<link rel="stylesheet" href="/CSS/nosub">
+<link rel="stylesheet" href="/CSS/pure-min">
+           <!--[if lte IE 8]>
+             <link rel="stylesheet" href="/CSS/grids-responsive-old-ie-min">
+           <![endif]-->
+           <!--[if gt IE 8]><!-->
+             <link rel="stylesheet" href="/CSS/grids-responsive-min">
+           <!--<![endif]-->
+           <link rel="stylesheet" href="/CSS/pure-lwn">
+           
+        
+<script type="text/javascript">var p="http",d="static";if(document.location.protocol=="https:"){p+="s";d="engine";}var z=document.createElement("script");z.type="text/javascript";z.async=true;z.src=p+"://"+d+".adzerk.net/ados.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(z,s);</script>
+<script type="text/javascript">
+var ados_keywords = ados_keywords || [];
+if( location.protocol=='https:' ) {
+        ados_keywords.push('T:SSL');
+} else {
+        ados_keywords.push('T:HTTP');
+}
+
+var ados = ados || {};
+ados.run = ados.run || [];
+ados.run.push(function() {
+
+ados_add_placement(4669, 20979, "azk13321_leaderboard", 4).setZone(16026);
+
+ados_add_placement(4669, 20979, "azk93271_right_zone", [5,10,6]).setZone(16027);
+
+ados_add_placement(4669, 20979, "azk31017_tracking", 20).setZone(20995);
+
+ados_keywords.push('S:Homepage');
+
+ados_setKeywords(ados_keywords.join(', ')); 
+ados_load();
+});</script>
+
+        </head>
+        <body bgcolor="#ffffff" link="Blue" VLINK="Green" alink="Green">
+        <a name="t"></a>
+<div id="menu"><a href="/"><img src="https://static.lwn.net/images/logo/barepenguin-70.png" class="logo"
+                 border="0" alt="LWN.net Logo">
+           <font class="logo">LWN<br>.net</font>
+           <font class="logobl">News from the source</font></a>
+           <a href="/"><img src="https://static.lwn.net/images/lcorner-ss.png" class="sslogo"
+                 border="0" alt="LWN"></a><div class="navmenu-container">
+           <ul class="navmenu">
+        <li><a class="navmenu" href="#t"><b>Content</b></a><ul><li><a href="/current/">Weekly Edition</a></li><li><a href="/Archives/">Archives</a></li><li><a href="/Search/">Search</a></li><li><a href="/Kernel/">Kernel</a></li><li><a href="/Security/">Security</a></li><li><a href="/Distributions/">Distributions</a></li><li><a href="/Calendar/">Events calendar</a></li><li><a href="/Comments/unread">Unread comments</a></li><li><hr></li><li><a href="/op/FAQ.lwn">LWN FAQ</a></li><li><a href="/op/AuthorGuide.lwn">Write for us</a></li></ul></li>
+</ul></div>
+</div> <!-- menu -->
+<div class="pure-g not-handset" style="margin-left: 10.5em">
+           <div class="not-print">
+             <div id="azk13321_leaderboard"></div>
+           </div>
+           </div>
+        <div class="topnav-container">
+<div class="not-handset"><form action="https://lwn.net/Login/" method="post" name="loginform"
+                 class="loginform">
+        <label><b>User:</b> <input type="text" name="Username" value="" size="8" id="uc" /></label> 
+		<label><b>Password:</b> <input type="password" name="Password" size="8" id="pc" /></label> <input type="hidden" name="target" value="" /> <input type="submit" name="submit" value="Log in" /></form> |
+           <form action="https://lwn.net/subscribe/" method="post" class="loginform">
+           <input type="submit" name="submit" value="Subscribe" />
+           </form> |
+           <form action="https://lwn.net/Login/newaccount" method="post" class="loginform">
+           <input type="submit" name="submit" value="Register" />
+           </form>
+        </div>
+               <div class="handset-only">
+               <a href="/subscribe/"><b>Subscribe</b></a> /
+               <a href="/Login/"><b>Log in</b></a> /
+               <a href="/Login/newaccount"><b>New account</b></a>
+               </div>
+               </div><div class="pure-grid maincolumn">
+<div class="lwn-u-1 pure-u-md-19-24">
+<div class="PageHeadline">
+<h1>Welcome to LWN.net</h1>
+</div>
+<div class="ArticleText">
+<blockquote style="margin-top: 0">
+       LWN.net is a reader-supported news site dedicated to producing the best
+       coverage from within the Linux and free software development communities.
+       See <a href="/op/FAQ.lwn">the LWN FAQ</a> for more information, and
+       please consider <a href="/subscribe/Info">subscribing</a> to gain full
+       access and support our activities.
+       </blockquote>
+       <p>
+       <div class="FPBox"><div class="FPLeft">
+<h2 class="Headline">[<font class="Subscription">$</font>] Stochastic bisection in Git</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Dec 10, 2021 15:45 UTC (Fri) by corbet</font>
+        <p>
+        Regressions are no fun; among other things, finding the source of a
+regression among thousands of changes can be a needle-in-the-haystack sort
+of problem.  The <a href="https://git-scm.com/docs/git-bisect"><tt>git
+bisect</tt></a> 
+command can help; it is a (relatively) easy way to sift through 
+large numbers of commits to find the one that introduces a regression.  When it
+works well, it can quickly point out the change that causes a specific
+problem.  Bisection is not a perfect tool, though; it can go badly wrong in
+situations where a bug cannot be reliably reproduced.  In an attempt to
+make bisection more useful in such cases, Jan Kara is proposing to <a
+href="/ml/git/20211118164940.8818-1-jack@suse.cz/">add "stochastic
+bisection" support</a> to Git.
+
+        <p>
+        <a href="/Articles/877964/">Full Story</a> (<a href="/Articles/877964/#Comments">comments: 9</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] Blocking straight-line speculation — eventually</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 9, 2021 15:42 UTC (Thu) by corbet</font>
+        <p>
+        The Spectre class of vulnerabilities was given that name because, it was
+thought, these problems would haunt us for a long time.  As the fourth
+anniversary of <a href="/Articles/742702/">the disclosure of Meltdown and
+Spectre</a> approaches, there is no reason to doubt the accuracy of that
+name.  One of 
+the more recent Spectre variants goes by the name "straight-line
+speculation"; it was first disclosed in June 2020, but fixes are still
+trying to find their way into the compilers and the kernel.
+
+        <p>
+        <a href="/Articles/877845/">Full Story</a> (<a href="/Articles/877845/#Comments">comments: 25</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] LWN.net Weekly Edition for December 9, 2021</h2>
+        
+        <font size="-1">Posted Dec 9, 2021 1:04 UTC (Thu)</font><p>
+        The LWN.net Weekly Edition for December 9, 2021 is available.
+<p>
+        <b>Inside this week's LWN.net Weekly Edition</b>
+        <ul>
+<li> <a href="/Articles/877424/">Front</a>: Deprecations in Python; KCSAN; Representing namespaces; Reference-count tracking; Random numbers.
+            <li> <a href="/Articles/877426/">Briefs</a>: NSS vuln post-mortem; CentOS Stream 9; Firefox 95.0 and ESR 91.4.0; Rust 1.57; LF annual report; Quote; ...
+            <li> <a href="/Articles/877427/">Announcements</a>: Newsletters; conferences; security updates; kernel patches; ...
+            </ul>
+<a href="/Articles/877424/">Read more</a>
+<p>
+
+<h2 class="Headline">[<font class="Subscription">$</font>] Python discusses deprecations</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Dec 8, 2021 22:42 UTC (Wed) by jake</font>
+        <p>
+        Feature deprecations are often controversial, but many projects find it
+necessary, or desirable, to lose some of the baggage that has accreted over
+time.  A mid-November request to get rid of three Python standard library
+modules provides a case in point.  It was initially greeted as a good idea
+since the modules had been officially deprecated starting with
+Python&nbsp;3.6; there are better ways to accomplish their
+tasks now.  But, of course, removing a module breaks any project that uses
+it, at least without the project making some, perhaps even trivial,
+changes.  The cost of that is not insignificant, and the value in doing so
+is not always clear, which led to higher-level conversation about deprecations.
+
+        <p>
+        <a href="/Articles/877957/">Full Story</a> (<a href="/Articles/877957/#Comments">comments: 34</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] FIPS-compliant random numbers for the kernel</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 7, 2021 20:11 UTC (Tue) by jake</font>
+        <p>
+        The Linux random-number generator (RNG) seems to attract an <a
+href="https://lwn.net/Kernel/Index/#Random_numbers">outsized amount 
+of attention</a> (and work) for what is, or seemingly should be, a fairly small
+component of the kernel.  In part that is because random numbers, and
+their quality, are extremely important to a number of security
+protections, from unpredictable IP-packet sequence numbers to cryptographic
+keys.  A recent <a
+href="/ml/linux-kernel/2036923.9o76ZdvQCi@positron.chronox.de/">post</a> of
+version&nbsp;43 of the Linux Random Number 
+Generator (LRNG) by Stephan Müller is not likely to go any further than its
+predecessors, but the discussion around it may lead to support for a
+feature that some distributions need.
+
+        <p>
+        <a href="/Articles/877607/">Full Story</a> (<a href="/Articles/877607/#Comments">comments: 13</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] A reference-count tracking infrastructure</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 6, 2021 18:28 UTC (Mon) by corbet</font>
+        <p>
+        Reference counts are a commonly used mechanism for tracking the life cycle
+of objects in a computing system.  As long as every user of an object
+correctly maintains its references by incrementing and decrementing the
+reference count, that object will persist for as long as it
+is needed
+and will be properly destroyed once the last user is done.  The "correctly"
+in that sentence is important, though; things do not work
+as well in the presence of reference-counting errors.  Networking
+developer Eric Dumazet is working on <a href="/ml/netdev/20211205042217.982127-1-eric.dumazet@gmail.com/">a
+reference-count tracking system</a> that could prove useful for finding
+these errors in the networking subsystem and, someday, throughout the kernel.
+
+        <p>
+        <a href="/Articles/877603/">Full Story</a> (<a href="/Articles/877603/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] A filesystem for namespaces</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 3, 2021 14:40 UTC (Fri) by corbet</font>
+        <p>
+        It is natural, when looking at the kernel development process, to focus on
+patches that find their way to acceptance and become a part of future
+kernels.  But there can be value in looking at work that doesn't clear the
+bar; in failing, these patches often reveal things about the kernel and the
+community that creates it.  Such is the case with the <a
+href="/ml/linux-kernel/20211118181210.281359-1-y.karadz@gmail.com/">proof-of-concept
+namespacefs
+patch series</a> recently posted by Yordan Karadzhov.  One should not
+expect to see namespacefs in a future kernel but, in failing, this work
+showed a real use case and why it is hard to satisfy that use case in the
+kernel.
+
+        <p>
+        <a href="/Articles/877308/">Full Story</a> (<a href="/Articles/877308/#Comments">comments: 15</a>)
+<p>
+</div>
+<h2 class="Headline">[<font class="Subscription">$</font>] Detecting missing memory barriers with KCSAN</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 2, 2021 19:02 UTC (Thu) by corbet</font>
+        <p>
+        Writing (correct) concurrent code that uses locking to avoid race
+conditions is difficult enough.  When the objective is to use <a
+href="/Articles/844224/">lockless algorithms</a>, relying on memory
+barriers instead of locks to eliminate locking overhead, the problem
+becomes harder 
+still.  Bugs are easy to create and hard to find in this type of code.
+There may be some help on the way, though, in the form of <a
+href="/ml/linux-kernel/20211130114433.2580590-1-elver@google.com/">this
+patch set</a> from Marco Elver that enhances the <a
+href="https://www.kernel.org/doc/html/latest/dev-tools/kcsan.html">Kernel
+Concurrency 
+Sanitizer</a> (KCSAN) with  the ability to detect some types of missing
+memory barriers.
+
+        <p>
+        <a href="/Articles/877200/">Full Story</a> (<a href="/Articles/877200/#Comments">comments: 13</a>)
+<p>
+</div>
+<h2 class="Headline">LWN.net Weekly Edition for December 2, 2021</h2>
+        
+        <font size="-1">Posted Dec 2, 2021 0:53 UTC (Thu)</font><p>
+        The LWN.net Weekly Edition for December 2, 2021 is available.
+<p>
+        <b>Inside this week's LWN.net Weekly Edition</b>
+        <ul>
+<li> <a href="/Articles/876363/">Front</a>: Git forges for Fedora; Python identifiers; Kernel warnings; Resource-limit defaults; BPF loops.
+            <li> <a href="/Articles/876365/">Briefs</a>: Amazon AL2022; Julia 1.7; PHP 8.1; Vizio lawsuit update; ...
+            <li> <a href="/Articles/876366/">Announcements</a>: Newsletters; conferences; security updates; kernel patches; ...
+            </ul>
+<a href="/Articles/876363/">Read more</a>
+<p>
+
+<h2 class="Headline">Fedora revisits the Git-forge debate</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Distributions] Posted Dec 1, 2021 22:18 UTC (Wed) by jake</font>
+        <p>
+        A seemingly straightforward question aimed at candidates for the in-progress
+<a
+href="https://communityblog.fedoraproject.org/f35-elections-voting-now-open/">Fedora
+elections</a> led to a discussion on the Fedora devel mailing list that
+branched into a few different directions.  The question was related to a
+struggle that the distribution has had before: whether using non-free Git
+forges is appropriate.  One of the
+differences this time, though, is that the focus is on where <a
+href="https://packit.dev/docs/source-git/">source-git</a> (or src-git)
+repositories will be hosted, which is a separate question from where the <a
+href="https://src.fedoraproject.org/rpms/dist-git">dist-git repository</a>
+lives.
+
+        <p>
+        <a href="/Articles/877240/">Full Story</a> (<a href="/Articles/877240/#Comments">comments: 17</a>)
+<p>
+</div>
+</div>
+<div class="FPRight">
+<h2 class="Headline">Mourning Fredrik &quot;Effbot&quot; Lundh</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Dec 10, 2021 21:13 UTC (Fri) by corbet</font>
+        <p>
+        Guido van Rossum has posted the sad news that longtime Python
+contributor Fredrik Lundh has died.
+<p>
+<blockquote class="bq">
+	Fredrik was an early Python contributor (e.g. Elementtree and the
+	're' module) and his enthusiasm for the language and community were
+	inspiring for all who encountered him or his work. He spent
+	countless hours on comp.lang.python answering questions from
+	newbies and advanced users alike.
+<p>
+	He also co-founded an early Python startup, Secret Labs AB, which
+	among other software released an IDE named PythonWorks. Fredrik
+	also created the Python Imaging Library (PIL) which is still THE
+	way to interact with images in Python, now most often through its
+	Pillow fork. His effbot.org site was a valuable resource for
+	generations of Python users, especially its Tkinter documentation.
+</blockquote>
+
+        <p>
+        <a href="/Articles/878325/">Full Story</a> (<a href="/Articles/878325/#Comments">comments: 3</a>)
+<p>
+</div>
+<h2 class="Headline">drgn: How the Linux Kernel Team at Meta Debugs the Kernel at Scale (Meta)</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 10, 2021 18:55 UTC (Fri) by corbet</font>
+        <p>
+        The "Meta for Developers" blog has <a
+href="https://developers.facebook.com/blog/post/2021/12/09/drgn-how-linux-kernel-team-meta-debugs-kernel-scale/">an
+introduction to the drgn kernel debugger</a>.
+<P>
+<blockquote class="bq">
+	drgn (pronounced “dragon”) is a debugger that exposes the types and
+	variables in a program for easy, expressive scripting in
+	Python. The Linux kernel team at Meta originally built drgn to make
+	it easier to investigate the kinds of difficult Linux kernel bugs
+	that the team encounters at Meta. The team has since added further
+	use cases for it, like monitoring and userspace memory profiling.
+</blockquote>
+<p>
+LWN <a href="/Articles/789641/">reported on drgn</a> in 2019.
+        <p>
+        <a href="/Articles/878309/">Comments (none posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Friday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 10, 2021 14:37 UTC (Fri) by jake</font>
+        <p>
+        Security updates have been issued by <b>Debian</b> (python-babel), <b>Fedora</b> (golang-github-opencontainers-image-spec and libmysofa), <b>openSUSE</b> (hiredis), <b>Oracle</b> (firefox and thunderbird), <b>Red Hat</b> (thunderbird and virt:8.2 and virt-devel:8.2), <b>Scientific Linux</b> (thunderbird), <b>SUSE</b> (kernel-rt and xen), and <b>Ubuntu</b> (firefox).
+
+        <p>
+        <a href="/Articles/878279/">Full Story</a> (<a href="/Articles/878279/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">Haas: Surviving Without A Superuser - Part One</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Dec 9, 2021 19:56 UTC (Thu) by corbet</font>
+        <p>
+        PostgreSQL developer Robert Haas has <a
+href="https://rhaas.blogspot.com/2021/12/surviving-without-superuser-part-one.html">begun
+a blog series</a> on what would be needed to allow database administrators
+to safely delegate superuser powers.
+<p>
+<blockquote class="bq">
+	Consider, for example, the case of a service provider who would
+	like to support a database with multiple customers as tenants. The
+	customers will naturally want to feel as if they have the powers of
+	a true superuser, with the ability to do things like create new
+	roles, drop old ones, change permissions on objects that they don't
+	own, and generally enjoy the freedom to bypass permission checks at
+	the SQL level which superusers enjoy. The service provider, who is
+	the true superuser, also wants this, but does not want the
+	customers to be able to do the really scary things that a superuser
+	can do, like changing archive_command to
+	<tt>rm&nbsp;-rf&nbsp;/</tt> or deleting the 
+	entire contents of <tt>pg_proc</tt> so that the system crashes and the
+	database in which the operation was performed is permanently
+	ruined.
+</blockquote>
+        <p>
+        <a href="/Articles/878206/#Comments">Comments (6 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Thursday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 9, 2021 14:31 UTC (Thu) by jake</font>
+        <p>
+        Security updates have been issued by <b>Fedora</b> (firefox, libopenmpt, matrix-synapse, vim, and xen), <b>Mageia</b> (gmp, heimdal, libsndfile, nginx/vsftpd, openjdk, sharpziplib/mono-tools, and vim), <b>Red Hat</b> (java-1.8.0-ibm), <b>Scientific Linux</b> (firefox), <b>SUSE</b> (kernel-rt), and <b>Ubuntu</b> (bluez).
+
+        <p>
+        <a href="/Articles/878142/">Full Story</a> (<a href="/Articles/878142/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">Stable kernels for all</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Kernel] Posted Dec 8, 2021 16:26 UTC (Wed) by ris</font>
+        <p>
+        Stable kernels <a href="/Articles/878040/">5.15.7</a>, <a
+href="/Articles/878041/">5.10.84</a>, <a
+href="/Articles/878042/">5.4.164</a>, <a
+href="/Articles/878043/">4.19.220</a>, <a
+href="/Articles/878044/">4.14.257</a>, <a
+href="/Articles/878045/">4.9.292</a>, and <a
+href="/Articles/878047/">4.4.294</a> have been released.  They all contain
+important fixes and users of those series should upgrade.
+        <p>
+        <a href="/Articles/878039/">Comments (none posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Wednesday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 8, 2021 16:15 UTC (Wed) by ris</font>
+        <p>
+        Security updates have been issued by <b>Debian</b> (nss), <b>Fedora</b> (rubygem-rmagick), <b>openSUSE</b> (xen), <b>Red Hat</b> (firefox and nss), <b>SUSE</b> (kernel and xen), and <b>Ubuntu</b> (mailman and nss).
+
+        <p>
+        <a href="/Articles/878038/">Full Story</a> (<a href="/Articles/878038/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">Firefox 95.0 and Firefox ESR 91.4.0</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Development] Posted Dec 7, 2021 16:54 UTC (Tue) by ris</font>
+        <p>
+        Firefox 95.0 is <a
+href="https://www.mozilla.org/firefox/95.0/releasenotes/">now
+available</a>.  With this version the <a
+href="https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/">RLBox</a>
+sandboxing technology is enabled on all platforms, as is the <a
+href="https://hacks.mozilla.org/2021/05/introducing-firefox-new-site-isolation-security-architecture/">Site
+Isolation</a> security architecture, which protects against side-channel
+attacks.
+<p>
+<a href="https://www.mozilla.org/firefox/91.4.0/releasenotes/">Firefox ESR
+91.4.0</a> is also available with various <a
+href="https://www.mozilla.org/en-US/security/advisories/mfsa2021-53/">security
+fixes</a>.
+        <p>
+        <a href="/Articles/877950/">Comments (8 posted)</a>
+<p>
+</div>
+<h2 class="Headline">Security updates for Tuesday</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Security] Posted Dec 7, 2021 15:57 UTC (Tue) by ris</font>
+        <p>
+        Security updates have been issued by <b>CentOS</b> (nss), <b>Debian</b> (roundcube and runc), <b>openSUSE</b> (aaa_base, brotli, clamav, glib-networking, gmp, go1.16, hiredis, kernel, mozilla-nss, nodejs12, nodejs14, openexr, openssh, php7, python-Babel, ruby2.5, speex, wireshark, and xen), <b>Oracle</b> (kernel and nss), <b>Red Hat</b> (kpatch-patch, nss, rpm, and thunderbird), <b>SUSE</b> (brotli, clamav, glib-networking, gmp, kernel, mariadb, mozilla-nss, nodejs12, nodejs14, openssh, php7, python-Babel, and wireshark), and <b>Ubuntu</b> (busybox, mariadb-10.3, mariadb-10.5, python-django, and samba).
+
+        <p>
+        <a href="/Articles/877945/">Full Story</a> (<a href="/Articles/877945/#Comments">comments: none</a>)
+<p>
+</div>
+<h2 class="Headline">Linux Foundation 2021 annual report</h2>
+        
+        <div class="BlurbListing">
+        <font size="-1">[Briefs] Posted Dec 6, 2021 23:08 UTC (Mon) by corbet</font>
+        <p>
+        For those who would like to catch up on what the Linux Foundation has been
+doing, the <a
+href="https://www.linuxfoundation.org/tools/linux-foundation-annual-report-2021/">2021
+annual report</a> is available as an 87-page PDF file.
+<p>
+<blockquote class="bq">
+	In 2021, The Linux Foundation continued to see organizations
+	embrace open collaboration and open source principles, accelerating
+	new innovations, approaches, and best practices. As a community, we
+	made significant progress in the areas of cloud-native computing,
+	5G networking, software supply chain security, 3D gaming, and a
+	host of new industry and social initiatives.
+</blockquote>
+        <p>
+        <a href="/Articles/877844/">Comments (53 posted)</a>
+<p>
+</div>
+</div>
+       </div>
+       <p><a href="/Articles/?offset=10">--&gt; More news items</a>
+       
+</div> <!-- ArticleText -->
+</div>
+<div class="lwn-u-1 pure-u-md-1-6 not-print">
+<div id="azk93271_right_zone"></div>
+</div>
+</div> <!-- pure-grid -->
+
+        <br clear="all">
+        <center>
+        <P>
+        <font size="-2">
+        Copyright &copy; 2021, Eklektix, Inc.<BR>
+        
+        Comments and public postings are copyrighted by their creators.<br>
+        Linux  is a registered trademark of Linus Torvalds<br>
+        </font>
+        </center>
+        
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+            <script type="text/javascript">
+            try {
+            var pageTracker = _gat._getTracker("UA-2039382-1");
+            pageTracker._trackPageview();
+            } catch(err) {}</script>
+            
+        </body></html>
+        
