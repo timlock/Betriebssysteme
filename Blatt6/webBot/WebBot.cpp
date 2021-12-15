@@ -94,7 +94,7 @@ void WebBot::client() {
         notFull.notify_one(); // Reader wird informiert, dass wieder Platz in der Queue ist
         if(debug) cout << "notFUll" << endl;
         lock.unlock(); // Kritischer Bereich wurde verlassen
-        ssfilename << id << "_" << fileCount++ << "_" << url << ".html";
+        ssfilename << "download/" << id << "_" << fileCount++ << "_" << url << ".html";
         string filename(ssfilename.str());
         removeSlash(filename);
         webRequest->download(url,filename); // Download der html Datei
