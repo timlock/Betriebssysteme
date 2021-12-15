@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <vector>
+#include <unistd.h>
 
 using namespace std;
 
@@ -36,8 +37,21 @@ int main(int argc, char *argv[]) {
             else cout << "-";
             if(S_IWUSR & m) cout << "w";
             else cout << "-";
-            
-            cout << buf.st_nlink << " " << buf.st_uid << " " << buf.st_gid << " " << buf.st_size << " " << buf.st_atime << " " << path << endl;
+            if (S_IXUSR & m) cout << "x";
+            else cout << "-";
+            if(S_IRGRP & m) cout << "r";
+            else cout << "-";
+            if(S_IWGRP & m) cout << "w";
+            else cout << "-";
+            if (S_IXGRP & m) cout << "x";
+            else cout << "-";
+            if(S_IROTH & m) cout << "r";
+            else cout << "-";
+            if(S_IWOTH & m) cout << "w";
+            else cout << "-";
+            if (S_IXOTH & m) cout << "x";
+            else cout << "-";
+            cout << " " << buf.st_nlink << " " << buf.st_uid << " " << buf.st_gid << " " << buf.st_size << " " << buf.st_atime << " " << path << endl;
 
         }
     } while (file);
