@@ -27,7 +27,7 @@ void WebBot::initialize(){
     char *argv[3];
     argv[0] = (char*)steuerDatei.c_str();
     string tmpDelay("--webreq-delay");
-//    tmpDelay.append(to_string(delay));
+    //tmpDelay.append(to_string(delay));
     argv[1] = (char*)tmpDelay.c_str();
     argv[2] = (char*)"--webreq-path download";
     webRequest = new WebRequest(3,argv);
@@ -63,7 +63,6 @@ void WebBot::reader() {
         if(file.eof()) readComplete = true; // Letzte Zeile wurde gelesen und Signal wird gesetzt
         lock.unlock();
         //lambda soll verhindern, dass der thread weiterläuft falls er zufällig aufwacht, kann in seltenen Fällen passieren
-        this_thread::sleep_for(chrono::milliseconds(delay)); // thread wartet für delay in millisekunden
     }
     cout << "__SteurDatei ist leer__\n";
 
