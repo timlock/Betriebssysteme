@@ -1,4 +1,4 @@
-/snap/clion/175/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/175/bin/ninja/linux/ninja -G Ninja /home/timlock/Betriebssysteme/Blatt7/myls
+/snap/clion/177/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/177/bin/ninja/linux/ninja -G Ninja /home/timlock/Betriebssysteme/Blatt7/myls
 -- The C compiler identification is GNU 9.3.0
 -- The CXX compiler identification is GNU 9.3.0
 -- Detecting C compiler ABI info
