@@ -4,10 +4,14 @@
 #include <vector>
 #include <unistd.h>
 
+
 using namespace std;
 
 
+
 int main(int argc, char *argv[]) {
+    cout << getopt(argc, argv,"algo") << endl;
+    cout << getopt(argc, argv,"algo") << endl;
     char *directory = argv[1];
     char *params = nullptr;
     int paramCount = argc - 2;
