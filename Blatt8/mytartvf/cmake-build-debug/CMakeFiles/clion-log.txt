@@ -1,0 +1,4 @@
+/snap/clion/178/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/178/bin/ninja/linux/ninja -G Ninja /home/timlock/Betriebssysteme/Blatt8/mytartvf
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/timlock/Betriebssysteme/Blatt8/mytartvf/cmake-build-debug

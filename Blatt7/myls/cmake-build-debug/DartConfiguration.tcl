@@ -26,8 +26,8 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/snap/clion/177/bin/cmake/linux/bin/cmake" "/home/timlock/Betriebssysteme/Blatt7/myls"
-MakeCommand: /snap/clion/177/bin/cmake/linux/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
+ConfigureCommand: "/snap/clion/178/bin/cmake/linux/bin/cmake" "/home/timlock/Betriebssysteme/Blatt7/myls"
+MakeCommand: /snap/clion/178/bin/cmake/linux/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
 # version control

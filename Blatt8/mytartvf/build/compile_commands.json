@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/timlock/Betriebssysteme/Blatt7/myls/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9    -g   -o CMakeFiles/myls.dir/main.cpp.o -c /home/timlock/Betriebssysteme/Blatt7/myls/main.cpp",
+  "file": "/home/timlock/Betriebssysteme/Blatt7/myls/main.cpp"
+}
+]
